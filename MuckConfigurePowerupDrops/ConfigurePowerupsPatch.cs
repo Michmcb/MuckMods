@@ -16,30 +16,42 @@ public class ConfigurePowerupsPatch
 		{
 			ItemManager.Instance.powerupsWhite = LoadPowerups("White", powerupsByName, Plugin.WhitePowerups);
 		}
+		else
+		{
+			Plugin.Log.LogInfo("No White powerups specified; not modifying any White powerups");
+		}
 		if (Plugin.BluePowerups.Length > 0)
 		{
 			ItemManager.Instance.powerupsBlue = LoadPowerups("Blue", powerupsByName, Plugin.BluePowerups);
+		}
+		else
+		{
+			Plugin.Log.LogInfo("No Blue powerups specified; not modifying any Blue powerups");
 		}
 		if (Plugin.OrangePowerups.Length > 0)
 		{
 			ItemManager.Instance.powerupsOrange = LoadPowerups("Orange", powerupsByName, Plugin.OrangePowerups);
 		}
+		else
+		{
+			Plugin.Log.LogInfo("No Orange powerups specified; not modifying any Orange powerups");
+		}
 	}
-	private static Powerup[] LoadPowerups(string type, Dictionary<string, Powerup> powerupsByName, IEnumerable<string> powerupNames)
+	private static Powerup[] LoadPowerups(string type, Dictionary<string, Powerup> powerupsByName, IEnumerable<NameWeight> weightedPowerups)
 	{
 		List<Powerup> powerups = new();
-		foreach (string powerupName in powerupNames)
+		foreach (var weightedPowerup in weightedPowerups)
 		{
-			if (powerupsByName.TryGetValue(powerupName, out Powerup? powerup))
+			if (powerupsByName.TryGetValue(weightedPowerup.Name, out Powerup? powerup))
 			{
-				powerups.Add(powerup);
+				powerups.AddRange(Enumerable.Repeat(powerup, weightedPowerup.Weight));
+				Plugin.Log.LogInfo(string.Concat("Loaded powerup \"", powerup.name, "\" as a ", type, " powerup, with a weight of ", weightedPowerup.Weight));
 			}
 			else
 			{
-				Plugin.Log.LogError("Powerup not found: " + powerupName);
+				Plugin.Log.LogError("Powerup not found: " + weightedPowerup.Name);
 			}
 		}
-		Plugin.Log.LogInfo(string.Concat("New possible ", type, " powerups are: ", string.Join(", ", powerups.Select(x => x.name))));
 		return powerups.ToArray();
 	}
 }

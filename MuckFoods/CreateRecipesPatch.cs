@@ -34,20 +34,23 @@ public class CreateRecipesPatch
 
 		// Adjust vanilla foods so things don't get too insane
 		// Meat soup and cooked meat are super easy to get, so they are nerfed
-		apple.hunger = 5f;
-		rawMeat.hunger = 5f;
-		gulponShroom.heal = 10f;
-		ligonShroom.hunger = 10f;
-		sugonShroom.stamina = 10f;
-		SetStats(slurbonShroom, 10f, 10f, 10f);
-		SetStats(cookedMeat, 15f, 15f, 5f);
-		SetStats(meatSoup, 20f, 20f, 10f);
-		SetStats(applePie, 35f, 35f, 35f);
-		SetStats(meatPie, 55f, 55f, 40f);
-		SetStats(purpleSoup, 10f, 10f, 30f);
-		SetStats(redSoup, 30f, 10f, 10f);
-		SetStats(weirdSoup, 30f, 30f, 30f);
-		SetStats(yellowSoup, 10f, 30f, 10f);
+		if (Plugin.RebalanceFoods)
+		{
+			apple.hunger = 5f;
+			rawMeat.hunger = 5f;
+			gulponShroom.heal = 10f;
+			ligonShroom.hunger = 10f;
+			sugonShroom.stamina = 10f;
+			SetStats(slurbonShroom, 10f, 10f, 10f);
+			SetStats(cookedMeat, 15f, 15f, 5f);
+			SetStats(meatSoup, 20f, 20f, 10f);
+			SetStats(applePie, 35f, 35f, 35f);
+			SetStats(meatPie, 55f, 55f, 40f);
+			SetStats(purpleSoup, 10f, 10f, 30f);
+			SetStats(redSoup, 30f, 10f, 10f);
+			SetStats(weirdSoup, 30f, 30f, 30f);
+			SetStats(yellowSoup, 10f, 30f, 10f);
+		}
 
 		var shrooms = new (InventoryItem room, string name, string colour, InventoryItem soup)[]
 		{
@@ -106,9 +109,9 @@ public class CreateRecipesPatch
 	}
 	private static InventoryItem CreateFood(InventoryItem baseItem, string name, string descr, InventoryItem.CraftRequirement[] requirements, params InventoryItem[] restoresTheSumOfThisStuff)
 	{
-		float heal = 5f;
-		float hunger = 5f;
-		float stamina = 5f;
+		float heal = Plugin.HealthBonus[restoresTheSumOfThisStuff.Length - 1];
+		float hunger = Plugin.HungerBonus[restoresTheSumOfThisStuff.Length - 1];
+		float stamina = Plugin.StaminaBonus[restoresTheSumOfThisStuff.Length - 1];
 		foreach (var s in restoresTheSumOfThisStuff)
 		{
 			heal += s.heal;
@@ -120,7 +123,7 @@ public class CreateRecipesPatch
 		food.description = descr;
 		food.requirements = requirements;
 		SetStats(food, heal, hunger, stamina);
-		Plugin.Log.LogInfo(string.Concat("Added food \"", name, "\" which restores ", heal, " HP, ", hunger, " Hunger, ", stamina, " Stamina. Made from: ", string.Join(",", food.requirements.Select(x => x.item.name))));
+		Plugin.Log.LogInfo(string.Concat("Added food \"", name, "\" which restores ", heal, " Health, ", hunger, " Hunger, ", stamina, " Stamina. Made from: ", string.Join(",", food.requirements.Select(x => x.item.name))));
 		return food;
 	}
 	private static InventoryItem.CraftRequirement[] CraftRequirements(params InventoryItem[] items)

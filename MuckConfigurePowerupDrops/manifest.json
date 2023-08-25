@@ -1,0 +1,7 @@
+{
+	"name": "MuckConfigurePowerupDrops",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/Michmcb/MuckMods",
+	"description": "A plugin which allows you to configure what powerups are dropped from white, blue, and orange sources. This can be used to stop certain powerups from being dropped, or make some powerups more likely, or completely change possible powerup drops.",
+	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]
+}
