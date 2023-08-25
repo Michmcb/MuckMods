@@ -9,6 +9,7 @@ Assembly-CSharp.dll
 BepInEx.dll
 UnityEngine.CoreModule.dll
 UnityEngine.dll
+output/
 
 # User-specific files
 *.rsuser
