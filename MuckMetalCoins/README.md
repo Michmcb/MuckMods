@@ -3,7 +3,7 @@ This plugin allows you to craft coins out of metal bars at an Anvil. By default,
 You can also modify the number of coins which Gold Bars make, too.
 
 # Configurable
-When running Muck for the first time with this plugin installed, MuckMetalCoins.cfg will be created in the BepinEx/config folder.
+When running Muck for the first time with this plugin installed, MuckMetalCoins.MichMcb.cfg will be created in the BepinEx/config folder.
 The configurable aspects of this plugin are:
 
 - The items from which coins can be crafted

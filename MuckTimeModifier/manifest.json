@@ -1,6 +1,6 @@
 {
 	"name": "MuckTimeModifier",
-	"version_number": "1.0.0",
+	"version_number": "1.1.0",
 	"website_url": "https://github.com/Michmcb/MuckMods",
 	"description": "This plugin allows you to modify the length of days. You can make time progress faster or slower, and change the proportion of the day that daytime and nighttime take up.",
 	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]

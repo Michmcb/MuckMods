@@ -2,7 +2,7 @@
 This plugin allows you to control the speed of time and the length of the daytime and nighttime portions of a day cycle. You can make days last longer, go by faster, have a longer period of daytime, or make nights last for ages!
 
 # Configurable
-When running Muck for the first time with this plugin installed, MuckTimeModifier.cfg will be created in the BepinEx/config folder.
+When running Muck for the first time with this plugin installed, MuckTimeModifier.MichMcb.cfg will be created in the BepinEx/config folder.
 The configurable aspects of this plugin are:
 
 - The length multiplier for daytime. For example, 1.25 makes daytime last 25% longer. Note that the length of daytime varies slightly depending upon difficulty; harder difficulties have shorter daytime.

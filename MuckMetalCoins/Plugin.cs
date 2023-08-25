@@ -30,8 +30,8 @@ public class Plugin : BaseUnityPlugin
 			{
 				amt = itemName == "Gold bar" ? new(1, 5) : new(1, 1);
 			}
-			int required = Config.Bind("Amounts", itemName + "_Required", amt.Required, string.Concat("The number of \"", itemName, "\" that are used in the recipe to create Coins.")).Value;
-			int coins = Config.Bind("Amounts", itemName + "_Coins", amt.Coins, string.Concat("The number of Coins which are created from the number of \"", itemName, "\" used as specified by the setting \"", itemName, "_Required\"")).Value;
+			int required = Config.BindMoreThanZero("Amounts", itemName + "_Required", amt.Required, string.Concat("The number of \"", itemName, "\" that are used in the recipe to create Coins."));
+			int coins = Config.BindMoreThanZero("Amounts", itemName + "_Coins", amt.Coins, string.Concat("The number of Coins which are created from the number of \"", itemName, "\" used as specified by the setting \"", itemName, "_Required\""));
 			ItemsCraftableIntoCoins[itemName] = new(required, coins);
 		}
 

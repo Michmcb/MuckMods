@@ -15,6 +15,7 @@ public class ConfigurePowerupsPatch
 		if (Plugin.WhitePowerups.Length > 0)
 		{
 			ItemManager.Instance.powerupsWhite = LoadPowerups("White", powerupsByName, Plugin.WhitePowerups);
+			Plugin.Log.LogInfo("New White powerups pool: " + string.Join(", ", ItemManager.Instance.powerupsWhite.Select(x => x.name)));
 		}
 		else
 		{
@@ -23,6 +24,7 @@ public class ConfigurePowerupsPatch
 		if (Plugin.BluePowerups.Length > 0)
 		{
 			ItemManager.Instance.powerupsBlue = LoadPowerups("Blue", powerupsByName, Plugin.BluePowerups);
+			Plugin.Log.LogInfo("New Blue powerups pool: " + string.Join(", ", ItemManager.Instance.powerupsBlue.Select(x => x.name)));
 		}
 		else
 		{
@@ -31,6 +33,7 @@ public class ConfigurePowerupsPatch
 		if (Plugin.OrangePowerups.Length > 0)
 		{
 			ItemManager.Instance.powerupsOrange = LoadPowerups("Orange", powerupsByName, Plugin.OrangePowerups);
+			Plugin.Log.LogInfo("New Orange powerups pool: " + string.Join(", ", ItemManager.Instance.powerupsOrange.Select(x => x.name)));
 		}
 		else
 		{

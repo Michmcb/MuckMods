@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckMetalCoins</AssemblyName>
     <Description>A plugin which allows you to create Coins from all metals, not just Gold. The amount of bars required and the number of coins created are configurable.</Description>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>
@@ -16,6 +16,10 @@
     <RootNamespace>MuckMetalCoins</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared.cs" Link="Shared.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">

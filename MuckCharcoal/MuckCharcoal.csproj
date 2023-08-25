@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckCharcoal</AssemblyName>
     <Description>A simple plugin which adds Charcoal. Wood can be burned in a Furnace to produce Charcoal, which functions similarly to coal. The wood which can be turned into charcoal, how long it takes to create charcoal, and how many items charcoal smelts can be confiugred.</Description>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>
@@ -16,6 +16,10 @@
     <RootNamespace>MuckCharcoal</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared.cs" Link="Shared.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">

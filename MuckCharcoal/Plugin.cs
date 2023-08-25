@@ -16,8 +16,8 @@ public class Plugin : BaseUnityPlugin
 	private void Awake()
 	{
 		Log = Logger;
-		MaxUses = Config.Bind("Main", "MaxUses", MaxUses, "The number of items that one piece of charcoal can smelt or cook").Value;
-		WoodProcessTime = Config.Bind("Main", "WoodProcessTime", WoodProcessTime, "The time, in seconds, it takes to burn one piece of wood and turn it into charcoal").Value;
+		MaxUses = Config.BindMoreThanZero("Main", "MaxUses", MaxUses, "The number of items that one piece of charcoal can smelt or cook");
+		WoodProcessTime = Config.BindMoreThanZero("Main", "WoodProcessTime", WoodProcessTime, "The time, in seconds, it takes to burn one piece of wood and turn it into charcoal");
 		ProcessableItemNames = Config.Bind("Main", "ProcessableItemNames", ProcessableItemNames, "The comma-separated item names which can be processed in a furnace and turned into charcoal").Value;
 		ProcessableItems = ProcessableItemNames.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 		Logger.LogInfo("MuckCharcoal loaded!");

@@ -24,7 +24,7 @@ The foods that you can cook with this mod are:
 
 
 # Configurable
-When running Muck for the first time with this plugin installed, MuckFoods.cfg will be created in the BepinEx/config folder.
+When running Muck for the first time with this plugin installed, MuckFoods.MichMcb.cfg will be created in the BepinEx/config folder.
 The configurable aspects of this plugin are:
 
 - Whether or not to rebalance basegame foods, which also affects the strength of added foods

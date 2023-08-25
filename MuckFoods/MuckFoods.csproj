@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckFoods</AssemblyName>
     <Description>Adds a wide variety of foods which can be cooked by combining various existing ingredients in a Cauldron. This also decreases the effectiveness of vanilla foods (Except Bread), to encourage combining many ingredients into one.</Description>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>
@@ -16,6 +16,10 @@
     <RootNamespace>MuckFoods</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared.cs" Link="Shared.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">
