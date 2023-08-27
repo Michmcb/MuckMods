@@ -1,0 +1,7 @@
+{
+	"name": "MuckRememberLobbySettings",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/Michmcb/MuckMods",
+	"description": "Remembers the settings you selected in the Lobby.",
+	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]
+}
