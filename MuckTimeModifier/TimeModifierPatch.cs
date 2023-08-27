@@ -19,7 +19,7 @@ public class TimeModifierPatch
 	[HarmonyPostfix]
 	private static void SetDayDuration(GameManager __instance)
 	{
-		// The day duration is only set to 1f as a default. The actual day duration is changed depending upon the difficulty, and is set by GameManager.
+		// The dayDuration field on DayCycle is only set to 1f as a default. The actual day duration is changed depending upon the difficulty, and is set by GameManager.
 		// This is why we set the dayDuration here.
 		float newDayDuration = DayCycle.dayDuration * Plugin.DayLengthMultiplier;
 		Plugin.Log.LogInfo(string.Concat("Changing dayDuration: ", DayCycle.dayDuration, " * ", Plugin.DayLengthMultiplier, " = ", newDayDuration));

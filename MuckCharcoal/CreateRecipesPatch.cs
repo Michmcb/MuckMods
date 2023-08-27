@@ -1,7 +1,7 @@
 ﻿namespace MuckCharcoal;
 
+using BepInEx;
 using HarmonyLib;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -73,6 +73,7 @@ public class CreateRecipesPatch
 		};
 		charcoal.id = ItemManager.Instance.allScriptableItems.Length;
 		ItemManager.Instance.allItems.Add(charcoal.id, charcoal);
+		Plugin.Log.LogItemCreated(charcoal);
 		ItemManager.Instance.allScriptableItems = ItemManager.Instance.allScriptableItems.Concat(new InventoryItem[1] { charcoal }).ToArray();
 
 		HashSet<string> processableItemNames = new(Plugin.ProcessableItems);

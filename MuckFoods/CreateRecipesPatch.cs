@@ -4,6 +4,7 @@ using HarmonyLib;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using BepInEx;
 
 public class CreateRecipesPatch
 {
@@ -15,6 +16,7 @@ public class CreateRecipesPatch
 		var apple = ItemManager.Instance.allItems[45];
 		var bowl = ItemManager.Instance.allItems[46];
 		var dough = ItemManager.Instance.allItems[47];
+		var flax = ItemManager.Instance.allItems[49];
 		var rawMeat = ItemManager.Instance.allItems[50];
 		var gulponShroom = ItemManager.Instance.allItems[51];
 		var ligonShroom = ItemManager.Instance.allItems[52];
@@ -66,6 +68,7 @@ public class CreateRecipesPatch
 		{
 			CreateFood(meatSoup, "Applesauce", "perfect for weak teeth", CraftRequirements(apple, bowl), apple),
 			CreateFood(applePie, "Pie Pie", "it's pie flavoured", CraftRequirements(dough, bowl), bread),
+			CreateFood(bread, "Flaxseed Bread", "what else can one do with flax?", CraftRequirements(dough, flax), bread),
 			CreateFood(meatSoup, "Apple Meat Stew", "yummy", CraftRequirements(apple, rawMeat, bowl), apple, meatSoup),
 			CreateFood(applePie, "Apple Meat Pie", "dessert and dinner in one", CraftRequirements(apple, rawMeat, dough, bowl), apple, rawMeat, bread),
 			CreateFood(weirdSoup, "Less Weird Soup", "food for a fun guy", CraftRequirements(gulponShroom, ligonShroom, sugonShroom, bowl), redSoup, yellowSoup, purpleSoup),
@@ -97,6 +100,7 @@ public class CreateRecipesPatch
 		{
 			item.id = id++;
 			ItemManager.Instance.allItems.Add(item.id, item);
+			Plugin.Log.LogItemCreated(item);
 		}
 		ItemManager.Instance.allScriptableItems = ItemManager.Instance.allScriptableItems.Concat(newItems).ToArray();
 		NewFoods = newItems.ToArray();

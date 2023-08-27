@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>MuckTimeModifier</AssemblyName>
-    <Description>This plugin allows you to modify the length of days. You can make time progress faster or slower, and change the proportion of the day that daytime and nighttime take up.</Description>
-    <Version>1.2.0</Version>
+    <AssemblyName>MuckDontDestroyNeighbours</AssemblyName>
+    <Description>With this plugin, when part of a structure is destroyed, no other parts will be destroyed. Perfect if monsters break your stairs and destroy your entire base and everything inside!</Description>
+    <Version>1.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>
@@ -13,7 +13,7 @@
       https://nuget.bepinex.dev/v3/index.json;
       https://nuget.samboy.dev/v3/index.json
     </RestoreAdditionalProjectSources>
-    <RootNamespace>MuckTimeModifier</RootNamespace>
+    <RootNamespace>MuckDontDestroyNeighbours</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 

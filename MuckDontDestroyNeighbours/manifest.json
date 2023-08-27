@@ -1,0 +1,7 @@
+{
+	"name": "MuckDontDestroyNeighbours",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/Michmcb/MuckMods",
+	"description": "With this plugin, when part of a structure is destroyed, no other parts will be destroyed. Perfect if monsters break your stairs and destroy your entire base and everything inside!",
+	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]
+}

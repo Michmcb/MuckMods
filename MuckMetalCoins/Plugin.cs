@@ -23,6 +23,7 @@ public class Plugin : BaseUnityPlugin
 			["Obamium bar"] = new(1, 4),
 			["Chunkium bar"] = new(1, 3),
 		};
+		Config.SaveOnConfigSet = false;
 		string itemNames = Config.Bind("Main", "ItemNames", "Iron bar,Mithril bar,Adamantite bar,Obamium bar,Chunkium bar", "The comma-separated names of items that can be crafted into coins at an Anvil. You can specify \"Gold bar\" here to change the number of Coins you get from gold bars, too.").Value;
 		foreach (string itemName in itemNames.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries))
 		{
@@ -34,6 +35,7 @@ public class Plugin : BaseUnityPlugin
 			int coins = Config.BindMoreThanZero("Amounts", itemName + "_Coins", amt.Coins, string.Concat("The number of Coins which are created from the number of \"", itemName, "\" used as specified by the setting \"", itemName, "_Required\""));
 			ItemsCraftableIntoCoins[itemName] = new(required, coins);
 		}
+		Config.Save();
 
 		Logger.LogInfo("MuckMetalCoins loaded!");
 		Harmony.CreateAndPatchAll(typeof(CreateRecipesPatch), null);

@@ -1,0 +1,7 @@
+{
+	"name": "MuckArrows",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/Michmcb/MuckMods",
+	"description": "A plugin which adds various arrows, like Stone, Ruby, Chunkium, Obamium. No custom sprites yet, though!",
+	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]
+}

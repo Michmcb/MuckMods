@@ -16,6 +16,7 @@ public class Plugin : BaseUnityPlugin
 	{
 		Log = Logger;
 
+		Config.SaveOnConfigSet = false;
 		char[] comma = new char[] { ',' };
 		string[] whitePowerups = Config.Bind("Main", "WhitePowerups", "Broccoli,Dumbbell,Jetpack,Orange Juice,Peanut Butter,Blue Pill,Red Pill,Sneaker,Robin Hood Hat,Spooo Bean", "The powerups that may drop from Common sources, such as bosses or Black/Brown chests. If this setting is empty, White powerups will not be modified. Specifying the same powerup multiple times increases its weight within this pool.").Value.Split(comma, StringSplitOptions.RemoveEmptyEntries);
 		string[] bluePowerups = Config.Bind("Main", "BluePowerups", "Bulldozer,Horseshoe,Danis Milk,Piggybank,Crimson Dagger,Dracula,Janniks Frog,Juice", "The powerups that may drop from Rare sources, such as bosses or Blue chests. If this setting is empty, Blue powerups will not be modified. Specifying the same powerup multiple times increases its weight within this pool.").Value.Split(comma, StringSplitOptions.RemoveEmptyEntries);
@@ -24,6 +25,7 @@ public class Plugin : BaseUnityPlugin
 		WhitePowerups = LoadPowerups(whitePowerups);
 		BluePowerups = LoadPowerups(bluePowerups);
 		OrangePowerups = LoadPowerups(orangePowerups);
+		Config.Save();
 
 		Logger.LogInfo("MuckConfigurePowerupDrops loaded!");
 		Harmony.CreateAndPatchAll(typeof(ConfigurePowerupsPatch), null);

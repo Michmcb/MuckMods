@@ -1,6 +1,7 @@
 ﻿namespace MuckMetalCoins;
 
 using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -104,7 +105,12 @@ public class CreateRecipesPatch
 		if (__instance.name == "AnvilNew")
 		{
 			// First tab for coins
-			__instance.tabs[0].items = __instance.tabs[0].items.Concat(CoinRecipes).ToArray();
+			InventoryItem[] existingRecipes = __instance.tabs[0].items;
+			InventoryItem[] recipes = new InventoryItem[existingRecipes.Length + CoinRecipes.Length];
+			existingRecipes.CopyTo(recipes, 0);
+			CoinRecipes.CopyTo(recipes, existingRecipes.Length);
+			Array.Sort(recipes, (x, y) => x.amount - y.amount);
+			__instance.tabs[0].items = recipes;
 		}
 	}
 }

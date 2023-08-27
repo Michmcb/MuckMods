@@ -8,7 +8,7 @@ using HarmonyLib;
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log;
-	public static bool RebalanceFoods;
+	public static bool RebalanceFoods = true;
 	public static float[] HealthBonus = new float[3];
 	public static float[] HungerBonus = new float[3];
 	public static float[] StaminaBonus = new float[3];
@@ -17,7 +17,8 @@ public class Plugin : BaseUnityPlugin
 		// Plugin startup logic
 		Log = Logger;
 
-		RebalanceFoods = Config.Bind("Main", "RebalanceFoods", true, "If true, then vanilla foods' Health/Hunger/Stamina will be rebalanced as follows:\n" +
+		Config.SaveOnConfigSet = false;
+		RebalanceFoods = Config.Bind("Main", "RebalanceFoods", RebalanceFoods, "If true, then vanilla foods' Health/Hunger/Stamina will be rebalanced as follows:\n" +
 			"Apple: 5/15/5 -> 5/5/5\n" +
 			"Raw Meat: 5/10/0 -> 5/5/0\n" +
 			"Gulpon Shroom: 12 Health -> 10 Health\n" +
@@ -44,7 +45,7 @@ public class Plugin : BaseUnityPlugin
 		HealthBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodHealthBonus", 7.5f, "The bonus to health that foods with 3 edible ingredient gain");
 		HungerBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodHungerBonus", 7.5f, "The bonus to hunger that foods with 3 edible ingredient gain");
 		StaminaBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodStaminaBonus", 7.5f, "The bonus to stamina that foods with 3 edible ingredient gain");
-
+		Config.Save();
 
 		Logger.LogInfo("MuckFoods loaded!");
 		Harmony.CreateAndPatchAll(typeof(CreateRecipesPatch), null);
