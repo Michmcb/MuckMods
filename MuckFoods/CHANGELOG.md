@@ -2,4 +2,7 @@
 - Initial Release
 
 # v1.1.0
+- Handled invalid config file values
+
+# v1.2.0
 - Added Flaxseed Bread, made from Dough and Flax
