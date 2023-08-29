@@ -3,9 +3,8 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using System.Linq;
 
-[BepInPlugin("MuckTimeModifier.MichMcb", "Muck Time Modifier", "1.0.0")]
+[BepInPlugin("MuckTimeModifier.MichMcb", "Muck Time Modifier", "1.2.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;
@@ -20,23 +19,23 @@ public class Plugin : BaseUnityPlugin
 		// Plugin startup logic
 		Log = Logger;
 		Config.SaveOnConfigSet = false;
-		DayLengthMultiplier = Config.BindMoreThanZero("Main", "DayLengthMultiplier", DayLengthMultiplier, "Multiplies the daytime portion of a single day/night cycle by this number. May not be 0. For example, 1 will leave it the same, 2 will double the daytime portion of a day/night cycle, making daytime longer. Difficulty also affects the length of daytime.");
-		NightLengthMultiplier = Config.BindMoreThanZero("Main", "NightLengthMultiplier", NightLengthMultiplier, "Multiplies the nighttime portion of a single day/night cycle by this number. May not be 0. For example, 1 will leave it the same, 2 will double the nighttime portion of a day/night cycle, making nighttime longer.");
+		DayLengthMultiplier = Config.BindMoreThanZero("Main", "DayLengthMultiplier", DayLengthMultiplier, "Multiplies the daytime portion of a single day/night cycle by this number. May not be 0. For example, 1 will leave it the same, 2 will double the daytime portion of a day/night cycle, making daytime longer. Difficulty also affects the length of daytime.").Value;
+		NightLengthMultiplier = Config.BindMoreThanZero("Main", "NightLengthMultiplier", NightLengthMultiplier, "Multiplies the nighttime portion of a single day/night cycle by this number. May not be 0. For example, 1 will leave it the same, 2 will double the nighttime portion of a day/night cycle, making nighttime longer.").Value;
 
 		// Config entries only get added to the dictionary once we bind something.
 		// // So, we first bind to the old name, then bind to the new one, passing in the old value (or the default value) as the default value for the new one.
 		var oldCfg = Config.Bind("Main", "TimeSpeedDivisor", TimeSpeedDivisor, "");
 		Config.Remove(oldCfg.Definition);
-		
-		TimeSpeedDivisor = Config.BindMoreThanZero("Main", "DayCycleLengthMultiplier", oldCfg.Value, "Divides the timespeed by this number. May not be 0. For example, 1 will leave it the same, 1.5 makes a day/night cycle last 50% longer, 0.5 makes a day/night cycle last half as long. This makes time progress at a faster/slower pace, so it affects the length of both daytime and nighttime.");
+
+		TimeSpeedDivisor = Config.BindMoreThanZero("Main", "DayCycleLengthMultiplier", oldCfg.Value, "Divides the timespeed by this number. May not be 0. For example, 1 will leave it the same, 1.5 makes a day/night cycle last 50% longer, 0.5 makes a day/night cycle last half as long. This makes time progress at a faster/slower pace, so it affects the length of both daytime and nighttime.").Value;
 
 		int defaultEasy = EasyBossDay;
 		int defaultNormal = NormalBossDay;
 		int defaultGamer = GamerBossDay;
 
-		EasyBossDay = Config.BindMoreThanZero("Main", "EasyBossDay", EasyBossDay, "On easy difficulty, every time the day number is evenly divisible by this number, then the day is a boss day. This causes a boss to spawn at night. By default it's 6, so this means days 6, 12, 18, etc. boss days.");
-		NormalBossDay = Config.BindMoreThanZero("Main", "NormalBossDay", NormalBossDay, "On normal difficulty, every time the day number is evenly divisible by this number, then the day is a boss day.");
-		GamerBossDay = Config.BindMoreThanZero("Main", "GamerBossDay", GamerBossDay, "On gamer difficulty, every time the day number is evenly divisible by this number, then the day is a boss day.");
+		EasyBossDay = Config.BindMoreThanZero("Main", "EasyBossDay", EasyBossDay, "On easy difficulty, every time the day number is evenly divisible by this number, then the day is a boss day. This causes a boss to spawn at night. By default it's.Value 6, so this means days 6, 12, 18, etc. boss days.").Value;
+		NormalBossDay = Config.BindMoreThanZero("Main", "NormalBossDay", NormalBossDay, "On normal difficulty, every time the day number is evenly divisible by this number, then the day is a boss day.").Value;
+		GamerBossDay = Config.BindMoreThanZero("Main", "GamerBossDay", GamerBossDay, "On gamer difficulty, every time the day number is evenly divisible by this number, then the day is a boss day.").Value;
 
 		Config.Save();
 

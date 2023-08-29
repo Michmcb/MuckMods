@@ -5,7 +5,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using System;
 
-[BepInPlugin("MuckCharcoal.MichMcb", "Muck Charcoal", "1.0.0")]
+[BepInPlugin("MuckCharcoal.MichMcb", "Muck Charcoal", "1.2.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;
@@ -18,8 +18,8 @@ public class Plugin : BaseUnityPlugin
 		Log = Logger;
 
 		Config.SaveOnConfigSet = false;
-		MaxUses = Config.BindMoreThanZero("Main", "MaxUses", MaxUses, "The number of items that one piece of charcoal can smelt or cook");
-		WoodProcessTime = Config.BindMoreThanZero("Main", "WoodProcessTime", WoodProcessTime, "The time, in seconds, it takes to burn one piece of wood and turn it into charcoal");
+		MaxUses = Config.BindMoreThanZero("Main", "MaxUses", MaxUses, "The number of items that one piece of charcoal can smelt or cook").Value;
+		WoodProcessTime = Config.BindMoreThanZero("Main", "WoodProcessTime", WoodProcessTime, "The time, in seconds, it takes to burn one piece of wood and turn it into charcoal").Value;
 		ProcessableItemNames = Config.Bind("Main", "ProcessableItemNames", ProcessableItemNames, "The comma-separated item names which can be processed in a furnace and turned into charcoal").Value;
 		ProcessableItems = ProcessableItemNames.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 		Logger.LogInfo("MuckCharcoal loaded!");

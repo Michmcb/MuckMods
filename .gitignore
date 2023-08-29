@@ -4,11 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 # Harmony, Unity, BepinEx, Game Assembly
-0Harmony.dll
-Assembly-CSharp.dll
-BepInEx.dll
-UnityEngine.CoreModule.dll
-UnityEngine.dll
+lib/
 output/
 
 # User-specific files

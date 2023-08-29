@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckCharcoal</AssemblyName>
     <Description>A simple plugin which adds Charcoal. Wood can be burned in a Furnace to produce Charcoal, which functions similarly to coal. The wood which can be turned into charcoal, how long it takes to create charcoal, and how many items charcoal smelts can be confiugred.</Description>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>
@@ -23,19 +23,19 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\0Harmony.dll</HintPath>
+      <HintPath>..\lib\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\lib\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>..\BepInEx.dll</HintPath>
+      <HintPath>..\lib\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\UnityEngine.dll</HintPath>
+      <HintPath>..\lib\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\lib\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

@@ -5,10 +5,10 @@ using BepInEx.Logging;
 using HarmonyLib;
 using System.Collections.Generic;
 
-[BepInPlugin("MuckMetalCoins.MichMcb", "Muck Metal Coins", "1.0.0")]
+[BepInPlugin("MuckMetalCoins.MichMcb", "Muck Metal Coins", "1.1.0")]
 public class Plugin : BaseUnityPlugin
 {
-	public static ManualLogSource Log;
+	public static ManualLogSource Log = null!;
 	public static Dictionary<string, Amt> ItemsCraftableIntoCoins = new();
 	private void Awake()
 	{
@@ -31,8 +31,8 @@ public class Plugin : BaseUnityPlugin
 			{
 				amt = itemName == "Gold bar" ? new(1, 5) : new(1, 1);
 			}
-			int required = Config.BindMoreThanZero("Amounts", itemName + "_Required", amt.Required, string.Concat("The number of \"", itemName, "\" that are used in the recipe to create Coins."));
-			int coins = Config.BindMoreThanZero("Amounts", itemName + "_Coins", amt.Coins, string.Concat("The number of Coins which are created from the number of \"", itemName, "\" used as specified by the setting \"", itemName, "_Required\""));
+			int required = Config.BindMoreThanZero("Amounts", itemName + "_Required", amt.Required, string.Concat("The number of \"", itemName, "\" that are used in the recipe to create Coins.")).Value;
+			int coins = Config.BindMoreThanZero("Amounts", itemName + "_Coins", amt.Coins, string.Concat("The number of Coins which are created from the number of \"", itemName, "\" used as specified by the setting \"", itemName, "_Required\"")).Value;
 			ItemsCraftableIntoCoins[itemName] = new(required, coins);
 		}
 		Config.Save();

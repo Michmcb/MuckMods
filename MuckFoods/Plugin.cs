@@ -4,7 +4,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 
-[BepInPlugin("MuckFoods.MichMcb", "Muck Foods", "1.0.0")]
+[BepInPlugin("MuckFoods.MichMcb", "Muck Foods", "1.2.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log;
@@ -34,17 +34,17 @@ public class Plugin : BaseUnityPlugin
 			"Purple Soup: 10/10/40 -> 10/10/30\n" +
 			"Weird Soup: 40/40/40 -> 30/30/30").Value;
 
-		HealthBonus[0] = Config.BindMoreThanZero("Main", "OneFoodHealthBonus", 2.5f, "The bonus to health that foods with 1 edible ingredient gain");
-		HungerBonus[0] = Config.BindMoreThanZero("Main", "OneFoodHungerBonus", 2.5f, "The bonus to hunger that foods with 1 edible ingredient gain");
-		StaminaBonus[0] = Config.BindMoreThanZero("Main", "OneFoodStaminaBonus", 2.5f, "The bonus to stamina that foods with 1 edible ingredient gain");
+		HealthBonus[0] = Config.BindMoreThanZero("Main", "OneFoodHealthBonus", 2.5f, "The bonus to health that foods with 1 edible ingredient gain").Value;
+		HungerBonus[0] = Config.BindMoreThanZero("Main", "OneFoodHungerBonus", 2.5f, "The bonus to hunger that foods with 1 edible ingredient gain").Value;
+		StaminaBonus[0] = Config.BindMoreThanZero("Main", "OneFoodStaminaBonus", 2.5f, "The bonus to stamina that foods with 1 edible ingredient gain").Value;
 
-		HealthBonus[1] = Config.BindMoreThanZero("Main", "TwoFoodHealthBonus", 5f, "The bonus to health that foods with 2 edible ingredient gain");
-		HungerBonus[1] = Config.BindMoreThanZero("Main", "TwoFoodHungerBonus", 5f, "The bonus to hunger that foods with 2 edible ingredient gain");
-		StaminaBonus[2] = Config.BindMoreThanZero("Main", "TwoFoodStaminaBonus", 5f, "The bonus to stamina that foods with 2 edible ingredient gain");
+		HealthBonus[1] = Config.BindMoreThanZero("Main", "TwoFoodHealthBonus", 5f, "The bonus to health that foods with 2 edible ingredient gain").Value;
+		HungerBonus[1] = Config.BindMoreThanZero("Main", "TwoFoodHungerBonus", 5f, "The bonus to hunger that foods with 2 edible ingredient gain").Value;
+		StaminaBonus[2] = Config.BindMoreThanZero("Main", "TwoFoodStaminaBonus", 5f, "The bonus to stamina that foods with 2 edible ingredient gain").Value;
 
-		HealthBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodHealthBonus", 7.5f, "The bonus to health that foods with 3 edible ingredient gain");
-		HungerBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodHungerBonus", 7.5f, "The bonus to hunger that foods with 3 edible ingredient gain");
-		StaminaBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodStaminaBonus", 7.5f, "The bonus to stamina that foods with 3 edible ingredient gain");
+		HealthBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodHealthBonus", 7.5f, "The bonus to health that foods with 3 edible ingredient gain").Value;
+		HungerBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodHungerBonus", 7.5f, "The bonus to hunger that foods with 3 edible ingredient gain").Value;
+		StaminaBonus[2] = Config.BindMoreThanZero("Main", "ThreeFoodStaminaBonus", 7.5f, "The bonus to stamina that foods with 3 edible ingredient gain").Value;
 		Config.Save();
 
 		Logger.LogInfo("MuckFoods loaded!");

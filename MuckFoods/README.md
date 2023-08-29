@@ -8,6 +8,7 @@ The foods that you can cook with this mod are:
 ## 1 Edible Ingredient
 - Applesauce (Apple + Bowl)
 - Pie Pie (Dough + Bowl)
+- Flaxseed Bread (Dough + Flax)
 
 ## 2 Edible Ingredients
 - Shroom Pie (Any Shroom + Dough + Bowl)

@@ -23,22 +23,22 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\0Harmony.dll</HintPath>
+      <HintPath>..\lib\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\lib\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>..\BepInEx.dll</HintPath>
+      <HintPath>..\lib\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>..\lib\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\UnityEngine.dll</HintPath>
+      <HintPath>..\lib\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\lib\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

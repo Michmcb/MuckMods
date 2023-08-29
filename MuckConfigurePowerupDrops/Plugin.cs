@@ -5,7 +5,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using System;
 
-[BepInPlugin("MuckConfigurePowerupDrops.MichMcb", "Muck Configure Powerup Drops", "1.0.0")]
+[BepInPlugin("MuckConfigurePowerupDrops.MichMcb", "Muck Configure Powerup Drops", "1.1.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;
@@ -36,7 +36,7 @@ public class Plugin : BaseUnityPlugin
 		for (int i = 0; i < names.Length; i++)
 		{
 			string name = names[i];
-			int count = Config.BindMoreThanZero("Weight", name + "_Weight", 1, string.Concat("The weight of the \"", name, "\" powerup across all pools, cumulative with being specified multiple times."));
+			int count = Config.BindMoreThanZero("Weight", name + "_Weight", 1, string.Concat("The weight of the \"", name, "\" powerup across all pools, cumulative with being specified multiple times.")).Value;
 			ncs[i] = new NameWeight(name, count);
 		}
 		return ncs;

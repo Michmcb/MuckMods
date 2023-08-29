@@ -63,14 +63,13 @@ public class CreateRecipesPatch
 		// If we say, have 2 stacks of wood and used that as fuel to burn the wood we'd make 1 stack of charcoal
 		// And if it had 2 uses, then we'd be right back to where we started!
 		// So 3 uses means every time we make a piece of charcoal, we've effectively made 1 extra piece of fuel
-		charcoal.fuel = new()
-		{
-			speedMultiplier = coal.fuel.speedMultiplier,
-			hideFlags = coal.fuel.hideFlags,
-			maxUses = Plugin.MaxUses,
-			currentUses = Plugin.MaxUses,
-			name = coal.name,
-		};
+		charcoal.fuel = ScriptableObject.CreateInstance<ItemFuel>();
+		charcoal.fuel.speedMultiplier = coal.fuel.speedMultiplier;
+		charcoal.fuel.hideFlags = coal.fuel.hideFlags;
+		charcoal.fuel.maxUses = Plugin.MaxUses;
+		charcoal.fuel.currentUses = Plugin.MaxUses;
+		charcoal.fuel.name = coal.name;
+		
 		charcoal.id = ItemManager.Instance.allScriptableItems.Length;
 		ItemManager.Instance.allItems.Add(charcoal.id, charcoal);
 		Plugin.Log.LogItemCreated(charcoal);

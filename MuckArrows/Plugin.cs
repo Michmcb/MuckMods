@@ -7,7 +7,7 @@ using HarmonyLib;
 [BepInPlugin("MuckArrows.MichMcb", "Muck Arrows", "1.0.0")]
 public class Plugin : BaseUnityPlugin
 {
-	public static ManualLogSource Log;
+	public static ManualLogSource Log = null!;
 	public static bool CanCraftStoneArrows = true;
 	public static bool CanCraftObamiumArrows = true;
 	public static bool CanCraftRubyArrows = true;
@@ -34,19 +34,18 @@ public class Plugin : BaseUnityPlugin
 		CanCraftRubyArrows = Config.Bind("Main", nameof(CanCraftRubyArrows), CanCraftStoneArrows, "If true, allows crafting Ruby Arrows. As above, they always exist.").Value;
 		CanCraftChunkiumArrows = Config.Bind("Main", nameof(CanCraftChunkiumArrows), CanCraftStoneArrows, "If true, allows crafting Chunkium Arrows. As above, they always exist.").Value;
 
-		FlintArrowDamage = Config.BindMoreThanZero("Damage", nameof(FlintArrowDamage), FlintArrowDamage, "The damage that Flint arrows deal. Vanilla: 20");
-		SteelArrowDamage = Config.BindMoreThanZero("Damage", nameof(SteelArrowDamage), SteelArrowDamage, "The damage that Steel arrows deal. Vanilla: 30");
-		MithrilArrowDamage = Config.BindMoreThanZero("Damage", nameof(MithrilArrowDamage), MithrilArrowDamage, "The damage that Mithril arrows deal. Vanilla: 40");
-		AdamantiteArrowDamage = Config.BindMoreThanZero("Damage", nameof(AdamantiteArrowDamage), AdamantiteArrowDamage, "The damage that Adamantite arrows deal. Vanilla: 50");
-		FireArrowDamage = Config.BindMoreThanZero("Damage", nameof(FireArrowDamage), FireArrowDamage, "The damage that Fire arrows deal. Vanilla: 100");
-		LightningArrowDamage = Config.BindMoreThanZero("Damage", nameof(LightningArrowDamage), LightningArrowDamage, "The damage that Lightning arrows deal. Vanilla: 100");
-		WaterArrowDamage = Config.BindMoreThanZero("Damage", nameof(WaterArrowDamage), WaterArrowDamage, "The damage that Water arrows deal. Vanilla: 100");
+		FlintArrowDamage = Config.BindMoreThanZero("Damage", nameof(FlintArrowDamage), FlintArrowDamage, "The damage that Flint arrows deal. Vanilla: 20").Value;
+		SteelArrowDamage = Config.BindMoreThanZero("Damage", nameof(SteelArrowDamage), SteelArrowDamage, "The damage that Steel arrows deal. Vanilla: 30").Value;
+		MithrilArrowDamage = Config.BindMoreThanZero("Damage", nameof(MithrilArrowDamage), MithrilArrowDamage, "The damage that Mithril arrows deal. Vanilla: 40").Value;
+		AdamantiteArrowDamage = Config.BindMoreThanZero("Damage", nameof(AdamantiteArrowDamage), AdamantiteArrowDamage, "The damage that Adamantite arrows deal. Vanilla: 50").Value;
+		FireArrowDamage = Config.BindMoreThanZero("Damage", nameof(FireArrowDamage), FireArrowDamage, "The damage that Fire arrows deal. Vanilla: 100").Value;
+		LightningArrowDamage = Config.BindMoreThanZero("Damage", nameof(LightningArrowDamage), LightningArrowDamage, "The damage that Lightning arrows deal. Vanilla: 100").Value;
+		WaterArrowDamage = Config.BindMoreThanZero("Damage", nameof(WaterArrowDamage), WaterArrowDamage, "The damage that Water arrows deal. Vanilla: 100").Value;
 
-		StoneArrowDamage = Config.BindMoreThanZero("Damage", nameof(StoneArrowDamage), StoneArrowDamage, "The damage that Stone arrows deal. Vanilla: 5");
-		ChunkiumArrowDamage = Config.BindMoreThanZero("Damage", nameof(ChunkiumArrowDamage), ChunkiumArrowDamage, "The damage that Chunkium arrows deal. Vanilla: 55");
-		ObamiumArrowDamage = Config.BindMoreThanZero("Damage", nameof(ObamiumArrowDamage), ObamiumArrowDamage, "The damage that Obamium arrows deal. Vanilla: 60");
-		RubyArrowDamage = Config.BindMoreThanZero("Damage", nameof(RubyArrowDamage), RubyArrowDamage, "The damage that Ruby arrows deal. Vanilla: 75");
-
+		StoneArrowDamage = Config.BindMoreThanZero("Damage", nameof(StoneArrowDamage), StoneArrowDamage, "The damage that Stone arrows deal. Vanilla: 5").Value;
+		ChunkiumArrowDamage = Config.BindMoreThanZero("Damage", nameof(ChunkiumArrowDamage), ChunkiumArrowDamage, "The damage that Chunkium arrows deal. Vanilla: 55").Value;
+		ObamiumArrowDamage = Config.BindMoreThanZero("Damage", nameof(ObamiumArrowDamage), ObamiumArrowDamage, "The damage that Obamium arrows deal. Vanilla: 60").Value;
+		RubyArrowDamage = Config.BindMoreThanZero("Damage", nameof(RubyArrowDamage), RubyArrowDamage, "The damage that Ruby arrows deal. Vanilla: 75").Value;
 
 		Config.Save();
 

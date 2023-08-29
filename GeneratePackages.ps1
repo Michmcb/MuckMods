@@ -1,6 +1,9 @@
 md output/bin
 md output/pkg
 
+# Regex to generate the new lines for this script
+# dotnet publish $1/$1.csproj -c RELEASE\nCopy-Item $1/bin/RELEASE/netstandard2.0/$1.dll output/bin/$1.dll\nCompress-Archive -Path $1/bin/RELEASE/netstandard2.0/$1.dll,$1/icon.png,$1/README.md,$1/CHANGELOG.md,$1/manifest.json -Destination output/pkg/$1.zip -Force\n
+
 dotnet publish MuckArrows/MuckArrows.csproj -c RELEASE
 Copy-Item MuckArrows/bin/RELEASE/netstandard2.0/MuckArrows.dll output/bin/MuckArrows.dll
 Compress-Archive -Path MuckArrows/bin/RELEASE/netstandard2.0/MuckArrows.dll,MuckArrows/icon.png,MuckArrows/README.md,MuckArrows/CHANGELOG.md,MuckArrows/manifest.json -Destination output/pkg/MuckArrows.zip -Force
@@ -12,6 +15,10 @@ Compress-Archive -Path MuckCharcoal/bin/RELEASE/netstandard2.0/MuckCharcoal.dll,
 dotnet publish MuckConfigurePowerupDrops/MuckConfigurePowerupDrops.csproj -c RELEASE
 Copy-Item MuckConfigurePowerupDrops/bin/RELEASE/netstandard2.0/MuckConfigurePowerupDrops.dll output/bin/MuckConfigurePowerupDrops.dll
 Compress-Archive -Path MuckConfigurePowerupDrops/bin/RELEASE/netstandard2.0/MuckConfigurePowerupDrops.dll,MuckConfigurePowerupDrops/icon.png,MuckConfigurePowerupDrops/README.md,MuckConfigurePowerupDrops/CHANGELOG.md,MuckConfigurePowerupDrops/manifest.json -Destination output/pkg/MuckConfigurePowerupDrops.zip -Force
+
+#dotnet publish MuckDifficulty/MuckDifficulty.csproj -c RELEASE
+#Copy-Item MuckDifficulty/bin/RELEASE/netstandard2.0/MuckDifficulty.dll output/bin/MuckDifficulty.dll
+#Compress-Archive -Path MuckDifficulty/bin/RELEASE/netstandard2.0/MuckDifficulty.dll,MuckDifficulty/icon.png,MuckDifficulty/README.md,MuckDifficulty/CHANGELOG.md,MuckDifficulty/manifest.json -Destination output/pkg/MuckDifficulty.zip -Force
 
 dotnet publish MuckDontDestroyNeighbours/MuckDontDestroyNeighbours.csproj -c RELEASE
 Copy-Item MuckDontDestroyNeighbours/bin/RELEASE/netstandard2.0/MuckDontDestroyNeighbours.dll output/bin/MuckDontDestroyNeighbours.dll
@@ -29,7 +36,10 @@ dotnet publish MuckRememberLobbySettings/MuckRememberLobbySettings.csproj -c REL
 Copy-Item MuckRememberLobbySettings/bin/RELEASE/netstandard2.0/MuckRememberLobbySettings.dll output/bin/MuckRememberLobbySettings.dll
 Compress-Archive -Path MuckRememberLobbySettings/bin/RELEASE/netstandard2.0/MuckRememberLobbySettings.dll,MuckRememberLobbySettings/icon.png,MuckRememberLobbySettings/README.md,MuckRememberLobbySettings/CHANGELOG.md,MuckRememberLobbySettings/manifest.json -Destination output/pkg/MuckRememberLobbySettings.zip -Force
 
+dotnet publish MuckSaveGame/MuckSaveGame.csproj -c RELEASE
+Copy-Item MuckSaveGame/bin/RELEASE/netstandard2.0/MuckSaveGame.dll output/bin/MuckSaveGame.dll
+Compress-Archive -Path MuckSaveGame/bin/RELEASE/netstandard2.0/MuckSaveGame.dll,MuckSaveGame/icon.png,MuckSaveGame/README.md,MuckSaveGame/CHANGELOG.md,MuckSaveGame/manifest.json -Destination output/pkg/MuckSaveGame.zip -Force
+
 dotnet publish MuckTimeModifier/MuckTimeModifier.csproj -c RELEASE
 Copy-Item MuckTimeModifier/bin/RELEASE/netstandard2.0/MuckTimeModifier.dll output/bin/MuckTimeModifier.dll
 Compress-Archive -Path MuckTimeModifier/bin/RELEASE/netstandard2.0/MuckTimeModifier.dll,MuckTimeModifier/icon.png,MuckTimeModifier/README.md,MuckTimeModifier/CHANGELOG.md,MuckTimeModifier/manifest.json -Destination output/pkg/MuckTimeModifier.zip -Force
-
