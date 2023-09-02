@@ -5,7 +5,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 
-[BepInPlugin("MuckRememberLobbySettings.MichMcb", "Muck Remember Lobby Settings", "1.0.0")]
+[BepInPlugin("MuckRememberLobbySettings.MichMcb", "Muck Remember Lobby Settings", "1.1.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;

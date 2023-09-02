@@ -109,7 +109,11 @@ public class CreateRecipesPatch
 			InventoryItem[] recipes = new InventoryItem[existingRecipes.Length + CoinRecipes.Length];
 			existingRecipes.CopyTo(recipes, 0);
 			CoinRecipes.CopyTo(recipes, existingRecipes.Length);
-			Array.Sort(recipes, (x, y) => x.amount - y.amount);
+			if (Plugin.OrderByProductivity)
+			{
+				Plugin.Log.LogInfo("Ordering");
+				Array.Sort(recipes, (x, y) => x.craftAmount - y.craftAmount);
+			}
 			__instance.tabs[0].items = recipes;
 		}
 	}

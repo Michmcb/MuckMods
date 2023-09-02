@@ -11,6 +11,7 @@
 	{
 		public BaseGameSaveData? Data { get; set; }
 		public string Name => "main";
+		public int LastBossNightThatSpawnedBoss { get; set; }
 		public Dictionary<string, SavedPlayer> Players { get; private set; } = new();
 		public ISaveData GetSaveData()
 		{
@@ -26,6 +27,7 @@
 				totalTime: DayCycle.totalTime,
 				mobUpdateIntervalMin: vec.x,
 				mobUpdateIntervalMax: vec.y,
+				lastBossNightThatSpawnedBoss: LastBossNightThatSpawnedBoss,
 				((List<MobType>)gameLoopType.GetField("bossRotation", bind).GetValue(GameLoop.Instance)).Select(x => x.id).ToList()
 			);
 
@@ -166,6 +168,7 @@
 			GameManager.instance.currentDay = w.CurrentDay;
 			GameManager.instance.UpdateDay(w.CurrentDay);
 			ServerSend.NewDay(w.CurrentDay);
+			LastBossNightThatSpawnedBoss = w.LastBossNightThatSpawnedBoss;
 
 			LoadChestWrappers(Data.ContainerData.Chests, World.chest);
 			LoadChestWrappers(Data.ContainerData.Furnaces, World.furnace);
@@ -176,10 +179,6 @@
 			LoadItems(Data.EntityData.DroppedItems);
 			LoadBuilds(Data.EntityData.Builds);
 			LoadBoat(Data.BoatData);
-
-			// TODO One bug that currently exists is that when we save and reload during a boss night, another boss will spawn,
-			// because from Muck's perspective the boss night has just begum,
-
 
 			Plugin.Log.LogInfo("Applying loaded data");
 			// We don't use Add(key, value) here because the aallMobs array seems to have multiple instances of the same mob for whatever reason

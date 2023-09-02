@@ -5,7 +5,8 @@ You CANNOT use this and SaveUtility at the same time. Remove SaveUtility and ins
 Also, a few things more now save properly, which are:
 - Mob spawnrate and weights are saved. This resets every night, but the fist night after reloading a save would have slower spawning mobs, and only weaker mobs were picked. This has been fixed.
 - Boat and Gem markers on the map are saved.
-- Boss rotation is saved. Muck has a pool of bosses to spawn that it picks from and empties as they spawn, then refills when the pool is empty. This is saved, so it doesn't reset to full on reload.
+- Boss rotation is saved. Muck has a pool of bosses to spawn at the beginning of a boss night that it picks from and empties as they spawn, then refills when the pool is empty. This is saved, so it doesn't reset to full on reload. This only affects the first boss that is forcibly spawned at the beginning of a boss night.
+- At the start of a boss night, Muck will instantly spawn a boss. If you save and load during a boss night, a new boss would always instantly spawn. This no longer happens. Further bosses may spawn during a boss night due to random chance, but only one boss will be forcibly spawned at the beginning of the night.
 - If the Chief boss is currently spawned, he is saved (just like Gronk/Big Chunk/Guardians).
 - Furnaces should start smelting on load (I'm not sure if this works in multiplayer or not).
 - You can no longer save when leaving the island.

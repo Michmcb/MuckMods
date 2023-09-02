@@ -75,6 +75,28 @@
 				playersUpdated = true;
 			}
 		}
+		[HarmonyPatch(typeof(GameLoop), "StartBoss")]
+		[HarmonyPrefix]
+		static bool PreventBossSpawnIfOneHasAlreadySpawnedIn(GameLoop __instance)
+		{
+			if (LocalClient.serverOwner)
+			{
+				if (selectedSavePath != null && SaveSystem.BaseGameManager.Data != null)
+				{
+					if (SaveSystem.BaseGameManager.LastBossNightThatSpawnedBoss == __instance.currentDay)
+					{
+						Plugin.Log.LogInfo(string.Concat("Blocking boss spawn, as the day is ", __instance.currentDay));
+						return false;
+					}
+					else
+					{
+						Plugin.Log.LogInfo(string.Concat("New boss spawn night, old: ", SaveSystem.BaseGameManager.LastBossNightThatSpawnedBoss, " new: ", __instance.currentDay));
+						SaveSystem.BaseGameManager.LastBossNightThatSpawnedBoss = __instance.currentDay;
+					}
+				}
+			}
+			return true;
+		}
 		[HarmonyPatch(typeof(DayCycle), "Awake")]
 		[HarmonyPostfix]
 		static void DayPatch(DayCycle __instance)

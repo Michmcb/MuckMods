@@ -16,7 +16,7 @@ public class SettingsPatch
 	public static ConfigEntry<int> BindSetting(UiSettings s)
 	{
 		ConfigEntry<int> cfg = Plugin.ConfigFile.Bind("Main", s.name, s.setting, "The last selected setting for " + s.name);
-		if (cfg.Value <= 0)
+		if (cfg.Value < 0)
 		{
 			cfg.Value = s.setting;
 		}

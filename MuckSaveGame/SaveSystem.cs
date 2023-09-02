@@ -130,7 +130,7 @@
 						w = (WorldSave)serializer.Deserialize(fin);
 					}
 
-					WorldSaveData worldData = new(w.currentDay, w.worldSeed, w.time, w.totalTime, 0f, 0f, new());
+					WorldSaveData worldData = new(w.currentDay, w.worldSeed, w.time, w.totalTime, 0f, 0f, 0, new());
 					bool isBoatMarked = false;
 					bool isBoatFound = false;
 					bool isBoatFinished = false;

@@ -5,10 +5,11 @@ using BepInEx.Logging;
 using HarmonyLib;
 using System.Collections.Generic;
 
-[BepInPlugin("MuckMetalCoins.MichMcb", "Muck Metal Coins", "1.1.0")]
+[BepInPlugin("MuckMetalCoins.MichMcb", "Muck Metal Coins", "1.2.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;
+	public static bool OrderByProductivity = false;
 	public static Dictionary<string, Amt> ItemsCraftableIntoCoins = new();
 	private void Awake()
 	{
@@ -24,6 +25,7 @@ public class Plugin : BaseUnityPlugin
 			["Chunkium bar"] = new(1, 3),
 		};
 		Config.SaveOnConfigSet = false;
+		OrderByProductivity = Config.Bind("Main", "OrderByProductivity", OrderByProductivity, "If true, then coin recipes will be sorted by how many coins they produce.").Value;
 		string itemNames = Config.Bind("Main", "ItemNames", "Iron bar,Mithril bar,Adamantite bar,Obamium bar,Chunkium bar", "The comma-separated names of items that can be crafted into coins at an Anvil. You can specify \"Gold bar\" here to change the number of Coins you get from gold bars, too.").Value;
 		foreach (string itemName in itemNames.Split(new char[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries))
 		{

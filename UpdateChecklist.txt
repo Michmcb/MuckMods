@@ -1,0 +1,7 @@
+Update the CHANGELOG
+Update the README
+Update manifest.json
+Update Muck***.csproj
+Update the BepInExPlugin attribute
+Commit code to github
+Upload package to Thunderstorm.io
