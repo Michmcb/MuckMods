@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckArrows</AssemblyName>
-    <Description>A plugin which adds various arrows, like Stone, Ruby, Chunkium, Obamium. Allows modifying arrow damage. No custom sprites yet, though!</Description>
-    <Version>1.0.0</Version>
+    <Description>A plugin which adds various arrows, like Stone, Ruby, Chunkium, Obamium. Allows modifying arrow damage.</Description>
+    <Version>1.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>
@@ -18,7 +18,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="resources" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Shared.cs" Link="Shared.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resources" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +41,9 @@
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\lib\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\lib\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\lib\UnityEngine.CoreModule.dll</HintPath>

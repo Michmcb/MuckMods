@@ -4,7 +4,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 
-[BepInPlugin("MuckArrows.MichMcb", "Muck Arrows", "1.0.0")]
+[BepInPlugin("MuckArrows.MichMcb", "Muck Arrows", "1.1.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;
@@ -23,6 +23,7 @@ public class Plugin : BaseUnityPlugin
 	public static int ChunkiumArrowDamage = 55;
 	public static int ObamiumArrowDamage = 60;
 	public static int RubyArrowDamage = 75;
+
 	private void Awake()
 	{
 		// Plugin startup logic
@@ -48,6 +49,8 @@ public class Plugin : BaseUnityPlugin
 		RubyArrowDamage = Config.BindMoreThanZero("Damage", nameof(RubyArrowDamage), RubyArrowDamage, "The damage that Ruby arrows deal. Vanilla: 75").Value;
 
 		Config.Save();
+
+		Resources.Load();
 
 		Logger.LogInfo("MuckArrows loaded!");
 		Harmony.CreateAndPatchAll(typeof(CreateRecipesPatch), null);
