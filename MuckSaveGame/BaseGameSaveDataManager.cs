@@ -65,6 +65,7 @@
 				}
 			}
 
+			//var v = PlayerMovement.Instance.transform.position;
 			SavedPlayer localPlayer = new
 			(
 				health: p.hp,
@@ -170,9 +171,9 @@
 			ServerSend.NewDay(w.CurrentDay);
 			LastBossNightThatSpawnedBoss = w.LastBossNightThatSpawnedBoss;
 
-			LoadChestWrappers(Data.ContainerData.Chests, World.chest);
-			LoadChestWrappers(Data.ContainerData.Furnaces, World.furnace);
-			LoadChestWrappers(Data.ContainerData.Cauldrons, World.cauldron);
+			LoadContainers(Data.ContainerData.Chests, World.chest);
+			LoadContainers(Data.ContainerData.Furnaces, World.furnace);
+			LoadContainers(Data.ContainerData.Cauldrons, World.cauldron);
 
 			LoadLocalPlayer(Data.PlayerData.LocalPlayer);
 			LoadMobs(Data.EntityData.Mobs);
@@ -226,7 +227,7 @@
 		{
 			Data = BaseGameSaveData.Load(xml);
 		}
-		private void LoadChestWrappers(IEnumerable<SavedContainer> containers, int buildId)
+		private void LoadContainers(IEnumerable<SavedContainer> containers, int buildId)
 		{
 			foreach (SavedContainer container in containers)
 			{
@@ -261,11 +262,8 @@
 					}
 					i++;
 				}
-				if (buildId == World.furnace)
-				{
-					// TODO we want to make Furnaces automatically start up when they are loaded - not sure if this works in multiplayer?
-					curChest.UpdateCraftables();
-				}
+				// TODO we want to make Furnaces automatically start up when they are loaded - not sure if this works in multiplayer?
+				curChest.UpdateCraftables();
 			}
 		}
 		private void LoadItems(IList<SavedDroppedItem> droppedItems)
@@ -352,15 +350,6 @@
 				stationsUnlocked[i] = playerData.StationUnlocks[i];
 			}
 
-			//var unlockItemSoft = typeof(UiEvents).GetMethod("UnlockItemSoft", flags);
-			//for (int i = 0; i < playerData.SoftUnlocks.Count; i++)
-			//{
-			//	if (playerData.SoftUnlocks[i])
-			//	{
-			//		unlockItemSoft.Invoke(UiEvents.Instance, new object[] { i });
-			//	}
-			//}
-
 			typeof(PowerupInventory).GetField("powerups", bind).SetValue(PowerupInventory.Instance, playerData.Powerups.ToArray());
 
 			// UpdateStats() Calculates the max HP and the max shields, so we don't actually have to set those, but we do anyways
@@ -386,8 +375,8 @@
 
 			PlayerStatus.Instance.draculaStacks = playerData.DraculaStacks;
 
-			Plugin.Log.LogInfo("Player Position: " + playerData.Position.ToString());
-			PlayerMovement.Instance.transform.position = playerData.Position.ToVec3();
+			var p = playerData.Position;
+			PlayerMovement.Instance.transform.position = new Vector3(p.X, p.Y + Plugin.VerticalOffset, p.Z);
 
 			for (int powerupId = 0; powerupId < playerData.Powerups.Count; powerupId++)
 			{

@@ -10,7 +10,7 @@
 	using System.Reflection;
 	using System.Xml;
 	using UnityEngine;
-	[BepInPlugin("MuckSaveGame.MichMcb", "MuckSaveGame", "0.5.0")]
+	[BepInPlugin("MuckSaveGame.MichMcb", "MuckSaveGame", "0.6.0")]
 	[BepInIncompatibility("flarfo.saveutility")]
 	public class Plugin : BaseUnityPlugin
 	{
@@ -26,6 +26,7 @@
 		public static TimeSpan SaveCooldown;
 		public static HashSet<string> SaveMobNames = new();
 		public static float MultiplayerSaveDelay = 5f;
+		public static float VerticalOffset = 0f;
 		public void Awake()
 		{
 			Log = Logger;
@@ -35,6 +36,8 @@
 			SaveCooldown = TimeSpan.FromSeconds(Config.Bind("Main", "SaveCooldown", 60, "The number of seconds you must wait until you can save your game again.").Value);
 			SaveMobNames = new(Config.Bind("Main", "SaveMobNames", "Big Chunk,Gronk,Guardian,Chief", "The names of the currently spawned mobs that are saved and restored.").Value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
 			MultiplayerSaveDelay = Config.BindMoreThanZero("Main", "MultiplayerSaveDelay", MultiplayerSaveDelay, "The delay, in seconds, between clicking the Save button and the save actually executing when playing multiplayer. This is so the packets from clients have time to be sent over the network to the game host. There's no delay in singleplayer; saving always happens instantly.").Value;
+
+			VerticalOffset = Config.Bind("Main", "VerticalOffset", VerticalOffset, "Offsets the local player by this value on the Y axis when loading data. This can be useful to prevent you from falling through floors on loading a savegame. Doesn't work in multiplayer yet.").Value;
 			Config.Save();
 
 			Directory.CreateDirectory(SaveSystem.GetSavesBasePath());

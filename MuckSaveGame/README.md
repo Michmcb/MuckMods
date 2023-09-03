@@ -20,6 +20,7 @@ The configurable aspects of this plugin are:
 - The amount of real-life seconds you have to wait after saving before you can save again.
 - Which mobs should be saved besides just the boss mobs.
 - Whether or not the savegame file should be indented (to read it more easily if you want to edit your save).
+- The vertical position offset for the local player on loading a savegame (helps avoid falling through the floor on loading a savegame)
 
 
 # Developers

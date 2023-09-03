@@ -8,3 +8,7 @@
 - Furnaces start smelting on game load (unsure if works in multiplayer)
 - You cannot save when leaving the island
 - You cannot save if everybody is dead
+
+# v0.6.0
+- Fixed Cauldrons not starting up on load
+- Added ability to offset local player Y position on load, to help prevent falling through the floor when a savegame is loaded
