@@ -4,7 +4,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 
-[BepInPlugin("MuckTimeModifier.MichMcb", "Muck Time Modifier", "1.3.0")]
+[BepInPlugin("MuckTimeModifier.MichMcb", "Muck Time Modifier", "1.3.1")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;
