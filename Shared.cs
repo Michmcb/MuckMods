@@ -28,6 +28,15 @@ namespace BepInEx
 			}
 			return cfg;
 		}
+		public static ConfigEntry<float> BindNonNegative(this ConfigFile config, string section, string key, float defaultValue, string description)
+		{
+			ConfigEntry<float> cfg = config.Bind(section, key, defaultValue, description);
+			if (cfg.Value < 0f)
+			{
+				cfg.Value = defaultValue;
+			}
+			return cfg;
+		}
 		public static InventoryItem Clone(this InventoryItem i)
 		{
 			InventoryItem i2 = ScriptableObject.CreateInstance<InventoryItem>();
