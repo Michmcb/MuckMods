@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckFoods</AssemblyName>
     <Description>Adds a wide variety of foods which can be cooked by combining various existing ingredients in a Cauldron. This also decreases the effectiveness of some vanilla foods, to encourage combining many ingredients into one.</Description>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>

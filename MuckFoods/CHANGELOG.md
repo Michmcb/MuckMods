@@ -14,3 +14,6 @@
 - Food bonuses depend on the number of any type of ingredient, not just edible ones
 - Flat bonus added to cooked food
 - Apple and Raw Meat hunger restoration very slightly adjusted
+
+# v1.4.0
+- Fixed a bug that caused Cauldrons to stop cooking when 6 Toasted Mushrooms/Baked Apples were in the output slot

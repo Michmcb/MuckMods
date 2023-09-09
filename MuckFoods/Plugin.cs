@@ -4,7 +4,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 
-[BepInPlugin("MuckFoods.MichMcb", "Muck Foods", "1.3.0")]
+[BepInPlugin("MuckFoods.MichMcb", "Muck Foods", "1.4.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;
