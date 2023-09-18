@@ -40,7 +40,23 @@ public class ConfigurePowerupsPatch
 			Plugin.Log.LogInfo("No Orange powerups specified; not modifying any Orange powerups");
 		}
 	}
-	private static Powerup[] LoadPowerups(string type, Dictionary<string, Powerup> powerupsByName, IEnumerable<NameWeight> weightedPowerups)
+	[HarmonyPatch(typeof(LootContainerInteract), nameof(LootContainerInteract.ServerExecute))]
+	[HarmonyPrefix]
+	private static void Stuff(LootContainerInteract __instance, ref int ___basePrice)
+	{
+		if (Plugin.DropRates.TryGetValue(___basePrice, out ChestDropRates rates))
+		{
+			__instance.white = rates.White;
+			__instance.blue = rates.Blue;
+			__instance.gold = rates.Orange;
+			Plugin.Log.LogInfo("Replaced chest loot drops");
+		}
+		else
+		{
+			Plugin.Log.LogInfo("Not touching chest loot drops");
+		}
+	}
+	private static Powerup[] LoadPowerups(string colour, Dictionary<string, Powerup> powerupsByName, IEnumerable<NameWeight> weightedPowerups)
 	{
 		List<Powerup> powerups = new();
 		foreach (var weightedPowerup in weightedPowerups)
@@ -48,7 +64,7 @@ public class ConfigurePowerupsPatch
 			if (powerupsByName.TryGetValue(weightedPowerup.Name, out Powerup? powerup))
 			{
 				powerups.AddRange(Enumerable.Repeat(powerup, weightedPowerup.Weight));
-				Plugin.Log.LogInfo(string.Concat("Loaded powerup \"", powerup.name, "\" as a ", type, " powerup, with a weight of ", weightedPowerup.Weight));
+				Plugin.Log.LogInfo(string.Concat("Loaded powerup \"", powerup.name, "\" as a ", colour, " powerup, with a weight of ", weightedPowerup.Weight));
 			}
 			else
 			{

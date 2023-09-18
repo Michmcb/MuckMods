@@ -8,3 +8,4 @@ The configurable aspects of this plugin are:
 
 - Powerups that are in the white, blue, and orange loot tables
 - The relative frequency at which specific powerups will drop
+- The probability that a chest will give a certain colour of powerup (So you can make black chests only drop orange powerups)
