@@ -1,7 +1,7 @@
 ﻿namespace MuckSaveGame
 {
+	using BepInEx;
 	using HarmonyLib;
-	using Steamworks;
 	using System.Collections.Generic;
 	using System.Reflection;
 	using UnityEngine;
@@ -23,18 +23,6 @@
 			LocalClient.packetHandlers.Add(105, new LocalClient.PacketHandler(ReceivePlayerStatus));
 			LocalClient.packetHandlers.Add(106, new LocalClient.PacketHandler(ReceiveArmor));
 			LocalClient.packetHandlers.Add(107, new LocalClient.PacketHandler(ReceiveTime));
-		}
-		private static void SendTCPData(Packet _packet)
-		{
-			ClientSend.bytesSent += _packet.Length();
-			ClientSend.packetsSent++;
-			_packet.WriteLength();
-			if (NetworkController.Instance.networkType == NetworkController.NetworkType.Classic)
-			{
-				LocalClient.instance.tcp.SendData(_packet);
-				return;
-			}
-			SteamPacketManager.SendPacket(LocalClient.instance.serverHost.Value, _packet, P2PSend.Reliable, SteamPacketManager.NetworkChannel.ToServer);
 		}
 		public static void SendInventory()
 		{
@@ -61,7 +49,7 @@
 				}
 			}
 
-			SendTCPData(packet);
+			Net.ClientSendTCPData(packet);
 		}
 		public static void SendPowerups()
 		{
@@ -79,7 +67,7 @@
 				packet.Write((short)powerup);
 			}
 
-			SendTCPData(packet);
+			Net.ClientSendTCPData(packet);
 		}
 		public static void SendPosition()
 		{
@@ -96,7 +84,7 @@
 			packet.Write(y);
 			packet.Write(z);
 
-			SendTCPData(packet);
+			Net.ClientSendTCPData(packet);
 		}
 		public static void SendPlayerStatus()
 		{
@@ -115,7 +103,7 @@
 			packet.Write(PlayerStatus.Instance.maxHunger);
 			packet.Write(PlayerStatus.Instance.draculaStacks);
 
-			SendTCPData(packet);
+			Net.ClientSendTCPData(packet);
 		}
 		public static void SendArmor()
 		{
@@ -148,14 +136,14 @@
 				packet.Write(-1);
 			}
 
-			SendTCPData(packet);
+			Net.ClientSendTCPData(packet);
 		}
 		public static void SendPlayerReady()
 		{
 			using Packet packet = new(105);
 			packet.Write(SteamManager.Instance.PlayerSteamIdString);
 
-			SendTCPData(packet);
+			Net.ClientSendTCPData(packet);
 		}
 		public static void ReceiveServerHasSave(Packet _packet)
 		{

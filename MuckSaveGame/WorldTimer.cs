@@ -59,8 +59,9 @@
 				catch (Exception ex)
 				{
 					Plugin.Log.LogError(ex.ToString());
-					ClientSend.SendChatMessage("<color=#FF0000>Save Failed!");
+					ClientSend.SendChatMessage("<color=#FF0000>Save Failed! Check the log for more details. " + ex.Message);
 					ChatBox.Instance.AppendMessage(-1, "<color=#FF0000>Save Failed", "");
+					UIManager.canSaveAfter = DateTime.MinValue;
 				}
 			}
 

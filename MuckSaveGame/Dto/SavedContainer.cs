@@ -27,7 +27,7 @@
 			for (int i = 0; i < chest.chestSize; i++)
 			{
 				InventoryItem? item = chest.cells[i];
-				if (item != null)
+				if (item is not null)
 				{
 					inventory.Add(new(i, item.id, item.amount));
 				}

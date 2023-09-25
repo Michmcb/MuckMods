@@ -12,3 +12,6 @@
 # v0.6.0
 - Fixed Cauldrons not starting up on load
 - Added ability to offset local player Y position on load, to help prevent falling through the floor when a savegame is loaded
+
+# v0.7.0
+- More checks to try and prevent errors on saving game

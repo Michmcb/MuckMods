@@ -1,6 +1,7 @@
 ﻿namespace MuckSaveGame
 {
 	using MuckSaveGame.Dto;
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Reflection;
@@ -13,49 +14,95 @@
 		public string Name => "main";
 		public int LastBossNightThatSpawnedBoss { get; set; }
 		public Dictionary<string, SavedPlayer> Players { get; private set; } = new();
+		public static T GetFieldStruct<T>(Type type, string name, object instance) where T : struct
+		{
+			return (T)type.GetField(name, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(instance);
+		}
+		public static T? GetField<T>(Type type, string name, object instance) where T : class
+		{
+			if (instance is null) return null;
+			object? value = type.GetField(name, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(instance);
+			return value is null ? null : (T)value;
+		}
 		public ISaveData GetSaveData()
 		{
 			// TODO If we want to make objects such as trees go away, for example, we could MAYBE keep track of destroyed object IDs. This is of course, assuming that their ID is going to be consistent, which it may or may not be. We'd have to test that.
-			BindingFlags bind = BindingFlags.NonPublic | BindingFlags.Instance;
-			var gameLoopType = typeof(GameLoop);
-			var vec = (Vector2)gameLoopType.GetField("checkMobUpdateInterval", bind).GetValue(GameLoop.Instance);
+			Type gameLoopType = typeof(GameLoop);
+			Vector2 checkMobUpdateInterval = GetFieldStruct<Vector2>(gameLoopType, "checkMobUpdateInterval", GameLoop.Instance);
+			List<MobType>? bossRotation = GetField<List<MobType>>(gameLoopType, "bossRotation", GameLoop.Instance);
+			List<int> bossesInRotation;
+			if (bossRotation == null)
+			{
+				bossesInRotation = new List<int>();
+				Plugin.Log.LogWarning("GameLoop.bossRotation was null; using empty list as boss rotation");
+			}
+			else
+			{
+				bossesInRotation = bossRotation.Where(x => x is not null).Select(x => x.id).ToList();
+			}
+
 			WorldSaveData worldSaveData = new
 			(
 				currentDay: GameLoop.Instance.currentDay,
 				seed: World.worldSeed,
 				time: DayCycle.time,
 				totalTime: DayCycle.totalTime,
-				mobUpdateIntervalMin: vec.x,
-				mobUpdateIntervalMax: vec.y,
+				mobUpdateIntervalMin: checkMobUpdateInterval.x,
+				mobUpdateIntervalMax: checkMobUpdateInterval.y,
 				lastBossNightThatSpawnedBoss: LastBossNightThatSpawnedBoss,
-				((List<MobType>)gameLoopType.GetField("bossRotation", bind).GetValue(GameLoop.Instance)).Select(x => x.id).ToList()
+				bossesInRotation: bossesInRotation
 			);
 
 			PlayerStatus p = PlayerStatus.Instance;
-			List<int> powerups = new((int[])typeof(PowerupInventory).GetField("powerups", bind).GetValue(PowerupInventory.Instance));
+			int[]? powerups = GetField<int[]>(typeof(PowerupInventory), "powerups", PowerupInventory.Instance);
+			if (powerups == null)
+			{
+				throw new Exception("PowerupInventory.powerups was null!");
+			}
 
-			var armorCells = InventoryUI.Instance.armorCells;
+			InventoryCell[] armorCells = InventoryUI.Instance.armorCells ?? throw new Exception("InventoryUI.armorCells was null!");
 			List<int> armor = new(armorCells.Length);
 			for (int i = 0; i < armorCells.Length; i++)
 			{
-				armor.Add(armorCells[i].currentItem
+				armor.Add(armorCells[i]?.currentItem is not null && armorCells[i].currentItem
 					? armorCells[i].currentItem.id
 					: -1);
 			}
 
 			var uiEventsType = typeof(UiEvents);
-			bool[] unlockedSoft = (bool[])uiEventsType.GetField("unlockedSoft", bind).GetValue(UiEvents.Instance);
-			bool[] unlockedHard = (bool[])uiEventsType.GetField("unlockedHard", bind).GetValue(UiEvents.Instance);
-			bool[] stationsUnlocked = (bool[])uiEventsType.GetField("stationsUnlocked", bind).GetValue(UiEvents.Instance);
+			bool[]? unlockedSoft = GetField<bool[]>(uiEventsType, "unlockedSoft", UiEvents.Instance);
+			bool[]? unlockedHard = GetField<bool[]>(uiEventsType, "unlockedHard", UiEvents.Instance);
+			bool[]? stationsUnlocked = GetField<bool[]>(uiEventsType, "stationsUnlocked", UiEvents.Instance);
 
-			IdAmount arrows = InventoryUI.Instance.arrows.currentItem
+			if (unlockedSoft is null)
+			{
+				unlockedSoft = new bool[0];
+				Plugin.Log.LogWarning("UiEvents.unlockedSoft was null; using empty list as unlockedSoft");
+			}
+			if (unlockedHard is null)
+			{
+				unlockedHard = new bool[0];
+				Plugin.Log.LogWarning("UiEvents.unlockedHard was null; using empty list as unlockedHard");
+			}
+			if (stationsUnlocked is null)
+			{
+				stationsUnlocked = new bool[0];
+				Plugin.Log.LogWarning("UiEvents.stationsUnlocked was null; using empty list as stationsUnlocked");
+			}
+
+			IdAmount arrows = InventoryUI.Instance.arrows?.currentItem is not null && InventoryUI.Instance.arrows.currentItem
 				? IdAmount.FromItem(InventoryUI.Instance.arrows.currentItem)
 				: default;
 
-			List<IdAmount> inventory = new(InventoryUI.Instance.cells.Count);
-			foreach (var cell in InventoryUI.Instance.cells)
+			if (InventoryUI.Instance.cells is null)
 			{
-				if (cell.currentItem)
+				throw new Exception("InventoryUI.cells was null!");
+			}
+
+			List<IdAmount> inventory = new(InventoryUI.Instance.cells.Count);
+			foreach (InventoryCell? cell in InventoryUI.Instance.cells)
+			{
+				if (cell?.currentItem is not null && cell.currentItem)
 				{
 					inventory.Add(IdAmount.FromItem(cell.currentItem));
 				}
@@ -65,7 +112,6 @@
 				}
 			}
 
-			//var v = PlayerMovement.Instance.transform.position;
 			SavedPlayer localPlayer = new
 			(
 				health: p.hp,
@@ -78,7 +124,7 @@
 				maxHunger: p.maxHunger,
 				draculaStacks: p.draculaStacks,
 				position: Position.FromVec3(PlayerMovement.Instance.transform.position),
-				powerups: powerups,
+				powerups: powerups.ToList(),
 				armor: armor,
 				softUnlocks: new(unlockedSoft),
 				hardUnlocks: new(unlockedHard),
@@ -93,20 +139,32 @@
 			List<SavedContainer> furnaces = new();
 			List<SavedContainer> cauldrons = new();
 
+			if (ChestManager.Instance.chests is null)
+			{
+				throw new Exception("ChestManager.chests was null!");
+			}
+
 			foreach (Chest chest in ChestManager.Instance.chests.Values)
 			{
-				SavedContainer container = SavedContainer.Create(chest);
-				switch (chest.chestSize)
+				if (chest is not null)
 				{
-					case 3:
-						furnaces.Add(container);
-						break;
-					case 6:
-						cauldrons.Add(container);
-						break;
-					case 21:
-						chests.Add(container);
-						break;
+					SavedContainer container = SavedContainer.Create(chest);
+					switch (chest.chestSize)
+					{
+						case 3:
+							furnaces.Add(container);
+							break;
+						case 6:
+							cauldrons.Add(container);
+							break;
+						case 21:
+							chests.Add(container);
+							break;
+					}
+				}
+				else
+				{
+					Plugin.Log.LogWarning("A container is null, skipping");
 				}
 			}
 
@@ -114,14 +172,17 @@
 
 			List<SavedBuild> builds = World.builds.Values.ToList();
 
-			Component[] boatComponents = (Component[])typeof(Boat).GetField("repairs", bind).GetValue(Boat.Instance);
+			Component[]? boatComponents = GetField<Component[]>(typeof(Boat), "repairs", Boat.Instance);
+			if (boatComponents is null)
+			{
+				Plugin.Log.LogWarning("Boat.repairs was null; using empty list as repairs");
+				boatComponents = new Component[0];
+			}
 			List<int> boatRepairs = new(boatComponents.Length);
 			foreach (RepairInteract? repairInteract in boatComponents.Cast<RepairInteract>())
 			{
 				// RepairInteract acts a bit strangely; the object isn't actually null, but the equality operator returns true if compared to null sometimes. Adding these causes (harmless) NullReferenceExceptions later
 				// RepairInteract can also be cast to a boolean. By casting it to a boolean, it tells us "Has it not been interacted with yet?"
-
-				// However we can't actually exclude them if they compare equal to null. If we do that, then 
 				if (!repairInteract) // repairInteract != null && 
 				{
 					boatRepairs.Add(repairInteract.GetId());
@@ -130,29 +191,44 @@
 			BoatSaveData boatSaveData = new(World.isBoatMarked, World.isBoatFound, World.isBoatFinished, World.areGemsMarked, boatRepairs);
 
 			List<SavedMob> mobs = new();
-			foreach (Mob mob in MobManager.Instance.mobs.Values)
+			if (MobManager.Instance.mobs is null)
 			{
-				// 9 is Big Chunk, 10 is Gronk, 14 is Guardian, 16 is Chief
-				//if (mob.mobType.id == 9 || mob.mobType.id == 10 || mob.mobType.id == 14 || mob.mobType.id == 16)
-				if (Plugin.SaveMobNames.Contains(mob.mobType.name))
+				Plugin.Log.LogWarning("MobManager.mobs was null; not saving mobs");
+			}
+			else
+			{
+				foreach (Mob? mob in MobManager.Instance.mobs.Values)
 				{
-					// guardianType is the colour of the Guardian
-					Plugin.Log.LogInfo("Saving mob: " + mob.mobType.name);
-					Guardian g = mob.gameObject.GetComponent<Guardian>();
-					int guardianType = g ? (int)g.type : -1;
-					mobs.Add(new SavedMob(mob.mobType.id, (int)mob.bossType, guardianType, mob.multiplier, mob.bossMultiplier, Position.FromVec3(mob.transform.position)));
+					if (mob?.mobType is not null)
+					{
+						// 9 is Big Chunk, 10 is Gronk, 14 is Guardian, 16 is Chief
+						//if (mob.mobType.id == 9 || mob.mobType.id == 10 || mob.mobType.id == 14 || mob.mobType.id == 16)
+						if (Plugin.SaveMobNames.Contains(mob.mobType.name))
+						{
+							// guardianType is the colour of the Guardian
+							Plugin.Log.LogInfo("Saving mob: " + mob.mobType.name);
+							Guardian g = mob.gameObject.GetComponent<Guardian>();
+							int guardianType = (g is not null && g) ? (int)g.type : -1;
+							mobs.Add(new SavedMob(mob.mobType.id, (int)mob.bossType, guardianType, mob.multiplier, mob.bossMultiplier, Position.FromVec3(mob.transform.position)));
+						}
+						else
+						{
+							Plugin.Log.LogInfo("Mob will not be saved: " + mob.mobType?.name);
+						}
+					}
 				}
-				else
-				{
-					Plugin.Log.LogInfo("Mob will not be saved: " + mob.mobType.name);
-				}
+			}
+
+			if (ItemManager.Instance.list is null)
+			{
+				throw new Exception("ItemManager.list was null!");
 			}
 
 			List<SavedDroppedItem> droppedItems = new();
 			foreach (GameObject gameObject in ItemManager.Instance.list.Values)
 			{
 				Item i = gameObject.GetComponent<Item>();
-				if (i)
+				if (i is not null && i && i.item is not null)
 				{
 					droppedItems.Add(new SavedDroppedItem(new IdAmount(i.item.id, i.item.amount), Position.FromVec3(gameObject.transform.position)));
 				}
