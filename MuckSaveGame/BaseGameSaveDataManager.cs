@@ -404,7 +404,7 @@
 		}
 		private void LoadLocalPlayer(SavedPlayer playerData)
 		{
-			InventoryItem[] allScriptableItems = ItemManager.Instance.allScriptableItems;
+			Dictionary<int, InventoryItem> allItems = ItemManager.Instance.allItems;
 
 			var bind = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
@@ -475,14 +475,14 @@
 				var itemId = playerData.Armor[i];
 				if (itemId != -1)
 				{
-					if (itemId < allScriptableItems.Length)
+					if (allItems.TryGetValue(itemId, out var item))
 					{
-						InventoryUI.Instance.AddArmor(allScriptableItems[itemId]);
+						InventoryUI.Instance.AddArmor(item);
 						PlayerStatus.Instance.UpdateArmor(i, itemId);
 					}
 					else
 					{
-						Plugin.Log.LogError(string.Concat("Error loading Player armor: Item ID is ", itemId, " but the maximum valid Item ID is ", allScriptableItems.Length, ". Skipping"));
+						Plugin.Log.LogError(string.Concat("Error loading Player armor: Item ID is ", itemId, " which was not found. Skipping"));
 					}
 				}
 			}
@@ -493,26 +493,26 @@
 				var invItem = playerData.Inventory[i];
 				if (invItem.Amount != 0)
 				{
-					if (invItem.ItemId < allScriptableItems.Length)
+					if (allItems.TryGetValue(invItem.ItemId, out var item))
 					{
-						InventoryUI.Instance.cells[i].ForceAddItem(allScriptableItems[invItem.ItemId], invItem.Amount);
+						InventoryUI.Instance.cells[i].ForceAddItem(item, invItem.Amount);
 					}
 					else
 					{
-						Plugin.Log.LogError(string.Concat("Error loading Player inventory: Item ID is ", invItem.ItemId, " but the maximum valid Item ID is ", allScriptableItems.Length, ". Skipping"));
+						Plugin.Log.LogError(string.Concat("Error loading Player inventory: Item ID is ", invItem.ItemId, " which was not found. Skipping"));
 					}
 				}
 			}
 
 			if (playerData.Arrows.Amount != 0)
 			{
-				if (playerData.Arrows.ItemId < allScriptableItems.Length)
+				if (allItems.TryGetValue(playerData.Arrows.ItemId, out var item))
 				{
-					InventoryUI.Instance.arrows.ForceAddItem(allScriptableItems[playerData.Arrows.ItemId], playerData.Arrows.Amount);
+					InventoryUI.Instance.arrows.ForceAddItem(item, playerData.Arrows.Amount);
 				}
 				else
 				{
-					Plugin.Log.LogError(string.Concat("Error loading arrows: Item ID is ", playerData.Arrows.ItemId, " but the maximum valid Item ID is ", allScriptableItems.Length, ". Skipping"));
+					Plugin.Log.LogError(string.Concat("Error loading arrows: Item ID is ", playerData.Arrows.ItemId, " which was not found. Skipping"));
 				}
 			}
 

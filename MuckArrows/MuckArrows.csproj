@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckArrows</AssemblyName>
     <Description>A plugin which adds various arrows, like Stone, Ruby, Chunkium, Obamium. Allows modifying arrow damage.</Description>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>

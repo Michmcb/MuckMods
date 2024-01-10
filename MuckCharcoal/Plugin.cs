@@ -5,7 +5,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using System;
 
-[BepInPlugin("MuckCharcoal.MichMcb", "Muck Charcoal", "1.2.0")]
+[BepInPlugin("MuckCharcoal.MichMcb", "Muck Charcoal", "1.3.0")]
 public class Plugin : BaseUnityPlugin
 {
 	public static ManualLogSource Log = null!;

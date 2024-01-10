@@ -40,7 +40,10 @@ public class CreateRecipesPatch
 			NewArrow(arrowFlint, "Chunkium Arrow", "how do these even fly?", Plugin.ChunkiumArrowDamage, 4, Resources.ChunkiumArrowSprite, Resources.ChunkiumArrowTexture, Plugin.CanCraftChunkiumArrows, new() { amount = 2, item = oakWood }, new() { amount = 1, item = chunkiumBar } ),
 		};
 
-		int id = ItemManager.Instance.allScriptableItems.Length;
+		// The game assigns IDs by the index in allScriptableItems. However, this array doesn't really seem to be used much.
+		// Additionally, some mods use that array for assigning IDs. They may use ItemManager.Instance.allItems.Count as the next ID for example (perfectly valid though)
+		// We'll just grab the largest ID and start from there.
+		int id = ItemManager.Instance.allItems.Keys.DefaultIfEmpty(0).Max() + 1;
 		foreach (var arrow in newArrows)
 		{
 			arrow.id = id++;

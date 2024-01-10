@@ -17,3 +17,6 @@
 
 # v1.4.0
 - Fixed a bug that caused Cauldrons to stop cooking when 6 Toasted Mushrooms/Baked Apples were in the output slot
+
+# v1.5.0
+- Fixed a bug with ObamiumStuff (and possibly other mods) that caused you to be unable to move on loading a world

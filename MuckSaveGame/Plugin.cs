@@ -10,7 +10,7 @@
 	using System.Reflection;
 	using System.Xml;
 	using UnityEngine;
-	[BepInPlugin("MuckSaveGame.MichMcb", "MuckSaveGame", "0.7.0")]
+	[BepInPlugin("MuckSaveGame.MichMcb", "MuckSaveGame", "0.8.0")]
 	[BepInIncompatibility("flarfo.saveutility")]
 	public class Plugin : BaseUnityPlugin
 	{

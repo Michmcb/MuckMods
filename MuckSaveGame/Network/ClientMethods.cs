@@ -164,7 +164,7 @@
 		{
 			Plugin.Log.LogInfo("Inventory Received!");
 
-			InventoryItem[] allScriptableItems = ItemManager.Instance.allScriptableItems;
+			var allItems = ItemManager.Instance.allItems;
 
 			int count = 0;
 
@@ -173,9 +173,9 @@
 				int id = _packet.ReadShort(true);
 				int amount = _packet.ReadShort(true);
 
-				if (id != -1)
+				if (id != -1 && allItems.TryGetValue(id, out var item))
 				{
-					InventoryUI.Instance.cells[count].ForceAddItem(allScriptableItems[id], amount);
+					InventoryUI.Instance.cells[count].ForceAddItem(item, amount);
 				}
 
 				count++;
@@ -258,16 +258,16 @@
 		{
 			Plugin.Log.LogInfo("Armor Received!");
 
-			InventoryItem[] allScriptableItems = ItemManager.Instance.allScriptableItems;
+			Dictionary<int, InventoryItem> allItems = ItemManager.Instance.allItems;
 
 			OtherInput.Instance.ToggleInventory(OtherInput.CraftingState.Inventory);
 			for (int i = 0; i < 4; i++)
 			{
 				short id = _packet.ReadShort(true);
 
-				if (id != -1)
+				if (id != -1 && allItems.TryGetValue(id, out var item))
 				{
-					InventoryUI.Instance.AddArmor(allScriptableItems[id]);
+					InventoryUI.Instance.AddArmor(item);
 					PlayerStatus.Instance.UpdateArmor(i, id);
 				}
 			}
@@ -276,9 +276,9 @@
 			short arrowId = _packet.ReadShort(true);
 			int arrowAmount = _packet.ReadInt(true);
 
-			if (arrowId != -1)
+			if (arrowId != -1 && allItems.TryGetValue(arrowId, out var arrowItem))
 			{
-				InventoryUI.Instance.arrows.ForceAddItem(allScriptableItems[arrowId], arrowAmount);
+				InventoryUI.Instance.arrows.ForceAddItem(arrowItem, arrowAmount);
 			}
 		}
 		private static void ReceiveTime(Packet _packet)
