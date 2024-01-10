@@ -148,10 +148,10 @@ public class CreateRecipesPatch
 		applePie.sprite = Resources.PieAppleSprite;
 		meatPie.sprite = Resources.PieMeatSprite;
 
-		// Now we assign IDs to all the newly created items
-		// The way IDs work is basically Muck has the array "allScriptableItems", and IDs are assigned based on index.
-		// So we loop over our new items in order and assign them IDs, add them to the dictionary, then concat it into the array
-		int id = ItemManager.Instance.allScriptableItems.Length;
+		// The game assigns IDs by the index in allScriptableItems. However, this array doesn't really seem to be used much.
+		// Additionally, some mods use that array for assigning IDs. They may use ItemManager.Instance.allItems.Count as the next ID for example (perfectly valid though)
+		// We'll just grab the largest ID and start from there.
+		int id = ItemManager.Instance.allItems.Keys.DefaultIfEmpty(0).Max() + 1;
 		foreach (var item in newItems)
 		{
 			item.id = id++;

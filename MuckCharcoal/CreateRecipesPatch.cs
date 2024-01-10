@@ -70,7 +70,7 @@ public class CreateRecipesPatch
 		charcoal.fuel.currentUses = Plugin.MaxUses;
 		charcoal.fuel.name = coal.name;
 		
-		charcoal.id = ItemManager.Instance.allScriptableItems.Length;
+		charcoal.id = ItemManager.Instance.allItems.Keys.DefaultIfEmpty(0).Max() + 1;
 		ItemManager.Instance.allItems.Add(charcoal.id, charcoal);
 		Plugin.Log.LogItemCreated(charcoal);
 		ItemManager.Instance.allScriptableItems = ItemManager.Instance.allScriptableItems.Concat(new InventoryItem[1] { charcoal }).ToArray();

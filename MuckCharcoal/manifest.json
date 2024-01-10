@@ -1,6 +1,6 @@
 {
 	"name": "MuckCharcoal",
-	"version_number": "1.2.0",
+	"version_number": "1.3.0",
 	"website_url": "https://github.com/Michmcb/MuckMods",
 	"description": "Adds Charcoal. Wood can be burned in a Furnace to produce Charcoal, which functions similarly to coal. The wood which can be turned into charcoal, how long it takes to create charcoal, and how many items charcoal smelts can be confiugred.",
 	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]

@@ -15,3 +15,6 @@
 
 # v0.7.0
 - More checks to try and prevent errors on saving game
+
+# v0.8.0
+- Mods that don't add their items to allScriptableItems and instead just add items to allItems are saved and loaded correctly

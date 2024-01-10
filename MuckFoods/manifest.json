@@ -1,6 +1,6 @@
 {
 	"name": "MuckFoods",
-	"version_number": "1.4.0",
+	"version_number": "1.5.0",
 	"website_url": "https://github.com/Michmcb/MuckMods",
 	"description": "Adds a wide variety of foods which can be cooked by combining various existing ingredients in a Cauldron. This also decreases the effectiveness of some vanilla foods, to encourage combining many ingredients into one.",
 	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]
