@@ -1,6 +1,6 @@
 {
 	"name": "MuckSaveGame",
-	"version_number": "0.8.0",
+	"version_number": "0.9.0",
 	"website_url": "https://github.com/Michmcb/MuckMods",
 	"description": "This mod adds saving your game to Muck. It is basically, a fork and update of flarfo's fantastic SaveUtility mod. This can automatically migrate saves from SaveUtility.",
 	"dependencies": ["BepInEx-BepInExPack_Muck-5.4.1101"]

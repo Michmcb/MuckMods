@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>MuckSaveGame</AssemblyName>
     <Description>This mod adds saving your game to Muck. It is basically, a fork and update of flarfo's fantastic SaveUtility mod. This can automatically migrate saves from SaveUtility.</Description>
-    <Version>0.8.0</Version>
+    <Version>0.9.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 	  <Nullable>enable</Nullable>

@@ -18,3 +18,6 @@
 
 # v0.8.0
 - Mods that don't add their items to allScriptableItems and instead just add items to allItems are saved and loaded correctly
+
+# v0.9.0
+- Partial fix for upgradeable buildings; saving and loading now works. However, the state of upgraded objects is not saved. This would have to be something that the other mod would have to support saving and loading, or would have to be explicitly checked for and handled. Either way, for now, a partial fix has been applied.
