@@ -247,9 +247,12 @@
 			ServerSend.NewDay(w.CurrentDay);
 			LastBossNightThatSpawnedBoss = w.LastBossNightThatSpawnedBoss;
 
-			LoadContainers(Data.ContainerData.Chests, World.chest);
-			LoadContainers(Data.ContainerData.Furnaces, World.furnace);
-			LoadContainers(Data.ContainerData.Cauldrons, World.cauldron);
+			List<Chest> chests = new();
+			List<Chest> furnaces = new();
+			List<Chest> cauldrons = new();
+			LoadContainers(Data.ContainerData.Chests, World.chest, chests);
+			LoadContainers(Data.ContainerData.Furnaces, World.furnace, furnaces);
+			LoadContainers(Data.ContainerData.Cauldrons, World.cauldron, cauldrons);
 
 			LoadLocalPlayer(Data.PlayerData.LocalPlayer);
 			LoadMobs(Data.EntityData.Mobs);
@@ -298,12 +301,37 @@
 				}
 			}
 			Players = Data.PlayerData.ClientPlayers;
+
+			foreach (var c in chests)
+			{
+				try
+				{
+					c.UpdateCraftables();
+				}
+				catch (Exception ex) { Plugin.Log.LogError(ex.ToString()); }
+			}
+			foreach (var c in furnaces)
+			{
+				try
+				{
+					c.UpdateCraftables();
+				}
+				catch (Exception ex) { Plugin.Log.LogError(ex.ToString()); }
+			}
+			foreach (var c in cauldrons)
+			{
+				try
+				{
+					c.UpdateCraftables();
+				}
+				catch (Exception ex) { Plugin.Log.LogError(ex.ToString()); }
+			}
 		}
 		public void LoadXml(XElement xml)
 		{
 			Data = BaseGameSaveData.Load(xml);
 		}
-		private void LoadContainers(IEnumerable<SavedContainer> containers, int buildId)
+		private void LoadContainers(IEnumerable<SavedContainer> containers, int buildId, List<Chest> chests)
 		{
 			foreach (SavedContainer container in containers)
 			{
@@ -314,6 +342,7 @@
 
 				Chest curChest = ChestManager.Instance.chests[nextId];
 				curChest.cells = new InventoryItem[container.Size];
+				chests.Add(curChest);
 
 				int i = 0;
 				foreach (CellIdAmount inv in container.Inventory)
@@ -338,8 +367,6 @@
 					}
 					i++;
 				}
-				// TODO we want to make Furnaces automatically start up when they are loaded - not sure if this works in multiplayer?
-				curChest.UpdateCraftables();
 			}
 		}
 		private void LoadItems(IList<SavedDroppedItem> droppedItems)
