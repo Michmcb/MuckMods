@@ -52,7 +52,7 @@ public class CreateRecipesPatch
 			SetStats(redSoup, 25f, 10f, 10f);
 			SetStats(yellowSoup, 10f, 25f, 10f);
 			SetStats(purpleSoup, 10f, 10f, 25f);
-			SetStats(weirdSoup, 30f, 30f, 30f);
+			SetStats(weirdSoup, 100f, 30f, 30f);
 
 			Restoration.FromIngredients(rawMeat).Apply(cookedMeat);
 			Restoration.FromIngredients(cookedMeat, bowl).Apply(meatSoup);
@@ -64,7 +64,7 @@ public class CreateRecipesPatch
 		var toastyGulponShroom = CreateFood(gulponShroom, Resources.ShroomRedToastySprite, "Toasted Gulpon Shroom", "nice and hot!", CraftRequirements(gulponShroom), gulponShroom);
 		var toastyLigonShroom = CreateFood(ligonShroom, Resources.ShroomYellowToastySprite, "Toasted Ligon Shroom", "tasty and filling", CraftRequirements(ligonShroom), ligonShroom);
 		var toastySugonShroom = CreateFood(sugonShroom, Resources.ShroomPurpleToastySprite, "Toasted Sugon Shroom", "keeps you jumping at your best", CraftRequirements(sugonShroom), sugonShroom);
-		var toastySlurbonShroom = CreateFood(slurbonShroom, Resources.ShroomSusToastySprite, "Toasted Slurbon Shroom", "still kinda sus...", CraftRequirements(slurbonShroom), slurbonShroom);
+		var toastySlurbonShroom = CreateFood(slurbonShroom, Resources.ShroomSusToastySprite, "Toasted Slurbon Shroom", "still kinda weird...", CraftRequirements(slurbonShroom), slurbonShroom);
 		bakedApple.processTime = cookedMeat.processTime;
 		toastyGulponShroom.processTime = cookedMeat.processTime;
 		toastyLigonShroom.processTime = cookedMeat.processTime;
@@ -78,8 +78,8 @@ public class CreateRecipesPatch
 			toastyLigonShroom,
 			toastySugonShroom,
 			toastySlurbonShroom,
-			CreateFood(applePie, applePie.sprite, "Pie Pie", "it's pie flavoured", CraftRequirements(dough, bowl), bread, bowl),
-			CreateFood(bread, Resources.FlaxseedBreadSprite, "Flaxseed Bread", "what else can you do with flax?", CraftRequirements(dough, flax), bread, flax),
+			CreateFood(applePie, applePie.sprite, "Pie Pie", "it's pie flavoured -apple", CraftRequirements(dough, bowl), bread, bowl),
+			CreateFood(bread, Resources.FlaxseedBreadSprite, "Flaxseed Bread", "Is this made out of the armor or the flower?", CraftRequirements(dough, flax), bread, flax),
 			CreateFood(meatSoup, Resources.AppleMeatStewSprite, "Apple Meat Stew", "yummy", CraftRequirements(apple, rawMeat, bowl), apple, cookedMeat, bowl),
 			CreateFood(applePie, Resources.PieAppleMeatSprite, "Apple Meat Pie", "dessert and dinner in one", CraftRequirements(apple, rawMeat, dough, bowl), apple, cookedMeat, bread, bowl),
 			CreateFood(weirdSoup, Resources.LessWeirdSoupSprite, "Less Weird Soup", "food for a fun guy", CraftRequirements(gulponShroom, ligonShroom, sugonShroom, bowl), gulponShroom, ligonShroom, sugonShroom, bowl)
