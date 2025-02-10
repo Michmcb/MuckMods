@@ -21,3 +21,6 @@
 
 # v0.9.0
 - Partial fix for upgradeable buildings; saving and loading now works. However, the state of upgraded objects is not saved. This would have to be something that the other mod would have to support saving and loading, or would have to be explicitly checked for and handled. Either way, for now, a partial fix has been applied.
+
+# v0.9.1
+- Fix for floating-point values being parsed according to the current locale, which could cause failures on load as floats were always saved with a . for the decimal point. Now they are parsed in a locale-independent manner.
