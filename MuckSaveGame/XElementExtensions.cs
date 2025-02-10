@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Globalization;
 	using System.IO;
 	using System.Xml.Linq;
 
@@ -43,7 +44,7 @@
 		/// <returns>The added <see cref="XElement"/>.</returns>
 		public static XElement AddElementValue(this XElement x, XName name, int value)
 		{
-			XElement e = new(name, value);
+			XElement e = new(name, value.ToString(CultureInfo.InvariantCulture));
 			x.Add(e);
 			return e;
 		}
@@ -57,7 +58,7 @@
 		/// <returns>The added <see cref="XElement"/>.</returns>
 		public static XElement AddElementValue(this XElement x, XName name, bool value)
 		{
-			XElement e = new(name, value);
+			XElement e = new(name, value.ToString());
 			x.Add(e);
 			return e;
 		}
@@ -71,7 +72,7 @@
 		/// <returns>The added <see cref="XElement"/>.</returns>
 		public static XElement AddElementValue(this XElement x, XName name, float value)
 		{
-			XElement e = new(name, value);
+			XElement e = new(name, value.ToString(CultureInfo.InvariantCulture));
 			x.Add(e);
 			return e;
 		}
@@ -130,7 +131,7 @@
 		/// <exception cref="InvalidDataException"></exception>
 		public static int ValueAsInt(this XElement x)
 		{
-			return int.TryParse(x.Value, out int v)
+			return int.TryParse(x.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int v)
 				? v
 				: throw new InvalidDataException(string.Concat("Unable to parse the value \"", x.Value, "\" of element \"", x.Name.ToString(), "\" as an integer"));
 		}
@@ -143,7 +144,7 @@
 		/// <exception cref="InvalidDataException"></exception>
 		public static float ValueAsFloat(this XElement x)
 		{
-			return float.TryParse(x.Value, out float v)
+			return float.TryParse(x.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out float v)
 				? v
 				: throw new InvalidDataException(string.Concat("Unable to parse the value \"", x.Value, "\" of element \"", x.Name.ToString(), "\" as a floating-point number"));
 		}

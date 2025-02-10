@@ -4,4 +4,4 @@ Update manifest.json
 Update Muck***.csproj
 Update the BepInExPlugin attribute
 Commit code to github
-Upload package to Thunderstorm.io
+Upload package to https://muck.thunderstore.io/package/create/

@@ -52,7 +52,13 @@
 				lastBossNightThatSpawnedBoss: LastBossNightThatSpawnedBoss,
 				bossesInRotation: bossesInRotation
 			);
+			// We need some way to uniquely identify the item permanently, even if its position within the items array shifts around
+			// The thing is that may be difficult to do. We COULD assign a unique, randomly-generated ID to every item on loading a new world,
+			// but we still need some way of attaching those IDs to the items, and detecting when they have changed.
 
+			// The core of the issue is that what we need to do is uniquely identify an item, then look up the item in the all-items dictionary, and get its ID dynamically that way.
+			// The name is of course, NOT a unique way to identify an item. It is entirely possible that the name can be shared by multiple items. And it is, even in vanilla; so that won't do.
+			// 
 			PlayerStatus p = PlayerStatus.Instance;
 			int[]? powerups = GetField<int[]>(typeof(PowerupInventory), "powerups", PowerupInventory.Instance);
 			if (powerups == null)
